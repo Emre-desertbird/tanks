@@ -82,6 +82,19 @@ public class Tank extends Entity {
       setVelocity(0, 0);
     }
     super.update(elapsedTime);
+    
+    double x = getPositionX();
+    if ( x < 0) {
+      setPositionX(0);
+    } else if ( x> world.getWidth()) {
+      setPositionX(world.getWidth());
+    }
+    double y = getPositionY();
+    if ( y < 0) {
+      setPositionY(0);
+    } else if ( y> world.getHeight()) {
+      setPositionY(world.getHeight());
+    }
 
     float xTur = controller.getAxis(2);
     float yTur = controller.getAxis(3);
