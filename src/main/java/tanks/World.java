@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
+import java.util.stream.Collectors;
 import com.badlogic.gdx.controllers.Controller;
 
 public class World {
@@ -93,11 +94,22 @@ public class World {
     toAdd.add(bullet);
   }
 
-  public void addExplosion(double x, double y, double vx, double vy) {
-    Explosion explosion = new Explosion(this);
+  public void addLargeExplosion(double x, double y, double vx, double vy) {
+    LargeExplosion explosion = new LargeExplosion(this);
     explosion.setPosition(x, y);
     explosion.setVelocity(vx, vy);
     toAdd.add(explosion);
+  }
+  
+  public void addSmallExplosion(double x, double y, double vx, double vy) {
+    SmallExplosion explosion = new SmallExplosion(this);
+    explosion.setPosition(x, y);
+    explosion.setVelocity(vx, vy);
+    toAdd.add(explosion);
+  }
+
+  public Collection<Bullet> getBullets() {
+    return entities.stream().filter(Bullet.class::isInstance).map(Bullet.class::cast).collect(Collectors.toList());
   }
 
 }

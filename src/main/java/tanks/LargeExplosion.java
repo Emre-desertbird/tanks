@@ -2,12 +2,12 @@ package tanks;
 
 import javafx.scene.canvas.GraphicsContext;
 
-public class Explosion extends Entity {
+public class LargeExplosion extends Entity {
 
   private final World world;
   private Sprite sprite = new Sprite();
   
-  public Explosion(World world) {
+  public LargeExplosion(World world) {
     this.world = world;
     sprite.setImage(getClass().getResource("/graphics/explosion-large-4.png"), 25*4, 25*4);
     ImageAnimation anim = new ImageAnimation();
