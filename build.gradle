@@ -1,0 +1,20 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'eclipse'
+}
+
+ext.libs = [
+	guava:                    'com.google.guava:guava:27.0.1-jre',
+	sdl2gdx:                  "uk.co.electronstudio.sdl2gdx:sdl2gdx:1.0.+",
+]
+
+repositories {
+    jcenter()
+}
+
+dependencies {    
+    compile libs.guava
+    compile libs.sdl2gdx
+}
+
