@@ -1,4 +1,4 @@
-package moonlander;
+package tanks;
 
 import com.badlogic.gdx.controllers.Controller;
 import com.badlogic.gdx.controllers.ControllerAdapter;
@@ -13,8 +13,6 @@ public class Tank extends Entity {
   private Sprite turret = new Sprite();
   private ImageAnimation anim = new ImageAnimation();
   private boolean engineActive = false;
-  private double fx;
-  private double fy;
 
   private boolean fire = false;
   private double fireCooldown = 0;
@@ -69,24 +67,6 @@ public class Tank extends Entity {
     } else {
       body.setImageAnimation(null);
     }
-  }
-
-  public void setForce(double fx, double fy) {
-    this.fx = fx;
-    this.fy = fy;
-  }
-
-  public double getFx() {
-    return fx;
-  }
-
-  public double getFy() {
-    return fy;
-  }
-
-  public void addForce(double dfx, double dfy) {
-    this.fx += dfx;
-    this.fy += dfy;
   }
 
   public void update(double elapsedTime) {

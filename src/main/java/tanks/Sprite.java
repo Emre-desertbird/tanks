@@ -1,4 +1,4 @@
-package moonlander;
+package tanks;
 
 import java.net.URL;
 import javafx.geometry.Point2D;

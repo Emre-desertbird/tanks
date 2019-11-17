@@ -1,4 +1,4 @@
-package moonlander;
+package tanks;
 
 import javafx.scene.image.Image;
 
