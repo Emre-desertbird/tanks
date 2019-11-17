@@ -5,6 +5,8 @@ import javafx.scene.image.Image;
 public enum PlayerSkin {
   BLUE("/graphics/tank-lower-blue.png", "/graphics/tank-upper-blue.png"), //
   RED("/graphics/tank-lower-red.png", "/graphics/tank-upper-red.png"), //
+  MAGENTA("/graphics/tank-lower-magenta.png", "/graphics/tank-upper-magenta.png"), //
+  GREEN("/graphics/tank-lower-green.png", "/graphics/tank-upper-green.png"), //
   ;
 
   private final Image bodyImage;

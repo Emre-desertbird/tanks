@@ -13,9 +13,10 @@ public class World {
   private Random random = new Random();
   private Set<PlayerSkin> availableSkins = EnumSet.allOf(PlayerSkin.class);
   private List<Tank> players = new ArrayList<>();
-  private List<Bullet> bullets = new ArrayList<>();
+  private List<Entity> entities = new ArrayList<>();
   
   private Set<Entity> toRemove = new HashSet<>();
+  private List<Entity> toAdd = new ArrayList<>();
   
   private double width;
   private double height;
@@ -36,16 +37,25 @@ public class World {
     this.width = width;
   }
   
+  public Collection<Entity> getEntities() {
+    return entities;
+  }
+  
   public void update(double elapsedTime) {
     for (Entity entity : toRemove) {
       if ( entity instanceof Tank) {
         players.remove((Tank)entity);
         availableSkins.add(((Tank)entity).getSkin());
       } else if ( entity instanceof Bullet) {
-        bullets.remove((Bullet)entity);
+        entities.remove((Bullet)entity);
       }
     }
     toRemove.clear();
+    
+    for (Entity entity : toAdd) {
+      entities.add(entity);
+    }
+    toAdd.clear();
   }
   
   public void remove(Entity entity) {
@@ -80,11 +90,14 @@ public class World {
     Bullet bullet = new Bullet(this);
     bullet.setPosition(positionX, positionY);
     bullet.setVelocity(vx, vy);
-    bullets.add(bullet);
+    toAdd.add(bullet);
   }
 
-  public Collection<Bullet> getBullets() {
-    return bullets;
+  public void addExplosion(double x, double y, double vx, double vy) {
+    Explosion explosion = new Explosion(this);
+    explosion.setPosition(x, y);
+    explosion.setVelocity(vx, vy);
+    toAdd.add(explosion);
   }
 
 }

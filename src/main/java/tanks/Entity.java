@@ -5,6 +5,8 @@ import javafx.scene.canvas.GraphicsContext;
 
 public abstract class Entity implements Cloneable {
 
+  private double age = 0;
+  
   private double positionX;
   private double positionY;
   private double rotation;
@@ -100,10 +102,15 @@ public abstract class Entity implements Cloneable {
   public void setVelocityY(double velocityY) {
     this.velocityY = velocityY;
   }
+  
+  public double getAge() {
+    return age;
+  }
 
-  public void update(double time) {
-    positionX += velocityX * time;
-    positionY += velocityY * time;
+  public void update(double elapsedTime) {
+    age += elapsedTime;
+    positionX += velocityX * elapsedTime;
+    positionY += velocityY * elapsedTime;
   }
 
   public boolean collides(Entity other) {
@@ -123,6 +130,7 @@ public abstract class Entity implements Cloneable {
     double dx = x1 - x2;
     double dy = y1 - y2;
     double dist = Math.sqrt(dx * dx + dy * dy);
+    
     return dist < r1 + r2;
   }
 

@@ -2,6 +2,7 @@ package tanks;
 
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicLong;
+import org.libsdl.SDL;
 import org.libsdl.SDL_Error;
 import com.badlogic.gdx.controllers.Controller;
 import com.badlogic.gdx.controllers.ControllerAdapter;
@@ -25,11 +26,10 @@ public class TanksApp extends Application {
 
   public static void main(String[] args) {
     launch(args);
+    SDL.SDL_SetHint("SDL_XINPUT_ENABLED", "1");
   }
 
   SDL2ControllerManager controllerManager = new SDL2ControllerManager();
-
-
   World world = new World();
   AtomicLong lastNanoTime = new AtomicLong(System.nanoTime());
   ArrayList<String> input = new ArrayList<String>();
@@ -44,18 +44,18 @@ public class TanksApp extends Application {
     bg.setFill(Color.DARKBLUE.darker().darker());
     Canvas canvas = new Canvas(WIDTH, HEIGHT);
     group.getChildren().addAll(bg, canvas);
-    
+
     world.setWidth(WIDTH);
     world.setHeight(HEIGHT);
 
     BorderPane root = new BorderPane();
     root.setCenter(group);
-    root.widthProperty().addListener((obs, oldV, newV)->{
+    root.widthProperty().addListener((obs, oldV, newV) -> {
       canvas.setWidth(newV.doubleValue());
       bg.setWidth(newV.doubleValue());
       world.setWidth(newV.doubleValue());
     });
-    root.heightProperty().addListener((obs, oldV, newV)->{
+    root.heightProperty().addListener((obs, oldV, newV) -> {
       canvas.setHeight(newV.doubleValue());
       bg.setHeight(newV.doubleValue());
       world.setHeight(newV.doubleValue());
@@ -86,7 +86,7 @@ public class TanksApp extends Application {
 
     GraphicsContext gc = canvas.getGraphicsContext2D();
 
-    
+
 
     for (Controller ctrl : controllerManager.getControllers()) {
       addPlayer(ctrl);
@@ -115,22 +115,22 @@ public class TanksApp extends Application {
         } catch (SDL_Error sdl_error) {
           sdl_error.printStackTrace();
         }
-        
+
         world.update(elapsedTime);
-        
+
         for (Tank player : world.getPlayers()) {
           player.update(elapsedTime);
         }
-        for (Bullet bullet : world.getBullets()) {
-          bullet.update(elapsedTime);
+        for (Entity entity : world.getEntities()) {
+          entity.update(elapsedTime);
         }
 
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         for (Tank player : world.getPlayers()) {
           player.render(gc);
         }
-        for (Bullet bullet : world.getBullets()) {
-          bullet.render(gc);
+        for (Entity entity : world.getEntities()) {
+          entity.render(gc);
         }
       }
     }.start();

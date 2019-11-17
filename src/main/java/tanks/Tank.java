@@ -3,6 +3,7 @@ package tanks;
 import com.badlogic.gdx.controllers.Controller;
 import com.badlogic.gdx.controllers.ControllerAdapter;
 import javafx.scene.canvas.GraphicsContext;
+import uk.co.electronstudio.sdl2gdx.RumbleController;
 
 public class Tank extends Entity {
   private final World world;
@@ -43,6 +44,8 @@ public class Tank extends Entity {
     body.setImage(skin.getBodyImage());
     turret.setImage(skin.getTurretImage());
     turret.setPivot(14, 0);
+    
+    setCollisionRadius((double)8*4);
   }
 
   public PlayerSkin getSkin() {
@@ -125,6 +128,13 @@ public class Tank extends Entity {
     body.render(gc);
     turret.render(gc);
     gc.restore();
+  }
+
+  public void hurt() {
+    if ( controller instanceof RumbleController) {
+      ((RumbleController)controller).rumble(0.6f, 0.6f, 300);
+      System.out.println(System.currentTimeMillis()+" Rumble");
+    }
   }
 
 }
