@@ -28,6 +28,11 @@ public class ImageAnimation {
   public void addImage(URL filename) {
     addImage(new Image(filename.toExternalForm()));
   }
+  
+  public void addImage(URL filename, int width, int height) {
+    Image i = new Image(filename.toExternalForm(), width, height, true, false);
+    addImage(i);
+  }
 
   public void render(long nanotime, double posX, double posY, GraphicsContext gc) {
     int len = images.size();

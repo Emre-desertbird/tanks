@@ -8,7 +8,7 @@ public class Tank extends Entity {
   private final World world;
   private final Controller controller;
   private final PlayerSkin skin;
-  
+
   private Sprite body = new Sprite();
   private Sprite turret = new Sprite();
   private ImageAnimation anim = new ImageAnimation();
@@ -16,26 +16,45 @@ public class Tank extends Entity {
   private double fx;
   private double fy;
 
+  private boolean fire = false;
+  private double fireCooldown = 0;
+
   public Tank(World world, Controller controller, PlayerSkin skin) {
     this.world = world;
     this.controller = controller;
     this.skin = skin;
     controller.addListener(new ControllerAdapter() {
-      
+      @Override
+      public boolean buttonDown(Controller controller, int buttonIndex) {
+        // System.out.println("buttonDown() buttonIndex="+buttonIndex);
+        if (buttonIndex == 10) {
+          fire = true;
+        }
+        return false;
+      }
+
+      @Override
+      public boolean buttonUp(Controller controller, int buttonIndex) {
+        // System.out.println("buttonDown() buttonIndex="+buttonIndex);
+        if (buttonIndex == 10) {
+          fire = false;
+        }
+        return false;
+      }
     });
     body.setImage(skin.getBodyImage());
     turret.setImage(skin.getTurretImage());
     turret.setPivot(14, 0);
-    
+
     // anim.addImage(getClass().getResource("/graphics/moonlander2.png"));
     // anim.addImage(getClass().getResource("/graphics/moonlander3.png"));
     // anim.setNanoPausePerFrame(1000 * 1000 * 100);
   }
-  
+
   public PlayerSkin getSkin() {
     return skin;
   }
-  
+
   public boolean hasController(Controller ctrl) {
     return controller == ctrl;
   }
@@ -78,31 +97,36 @@ public class Tank extends Entity {
     float xAxis = controller.getAxis(0);
     float yAxis = controller.getAxis(1);
 
-    
-    if (Math.sqrt(xAxis*xAxis+yAxis*yAxis)>0.2) {
-      float factor = 150.0f;
+    if (Math.sqrt(xAxis * xAxis + yAxis * yAxis) > 0.2) {
+      float factor = 250.0f;
       setVelocity(xAxis * factor, yAxis * factor);
       double rot = Math.toDegrees(Math.atan2(yAxis, xAxis));
       body.setRotation(rot);
     } else {
-      setVelocity(0,0);
+      setVelocity(0, 0);
     }
     super.update(elapsedTime);
-    
+
     float xTur = controller.getAxis(2);
     float yTur = controller.getAxis(3);
-    if (Math.sqrt(xTur*xTur+yTur*yTur)>0.9) {
+    if (Math.sqrt(xTur * xTur + yTur * yTur) > 0.9) {
       double rot = Math.toDegrees(Math.atan2(yTur, xTur));
       turret.setRotation(rot);
     }
 
-  }
-
-  private float damp(float value) {
-    if (0.15 > value && value > -0.15) {
-      return 0f;
+    if (fireCooldown>0) {
+      fireCooldown-=elapsedTime;
     }
-    return value;
+    
+    if (fire && fireCooldown <= 0) {
+      fireCooldown = 0.15;
+      double rot = turret.getRotation();
+      double vx = Math.cos(Math.toRadians(rot));
+      double vy = Math.sin(Math.toRadians(rot));
+      double factor = 550;
+      world.addBullet(getPositionX() + turret.getPositionX() + vx * 40,
+          getPositionY() + turret.getPositionY() + vy * 40, vx * factor, vy * factor);
+    }
   }
 
   @Override

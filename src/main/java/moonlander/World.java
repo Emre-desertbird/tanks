@@ -13,6 +13,7 @@ public class World {
   private Random random = new Random();
   private Set<PlayerSkin> availableSkins = EnumSet.allOf(PlayerSkin.class);
   private List<Tank> players = new ArrayList<>();
+  private List<Bullet> bullets = new ArrayList<>();
 
   public void remove(Tank tank) {
     players.remove(tank);
@@ -41,6 +42,17 @@ public class World {
     PlayerSkin result = availableSkins.toArray(new PlayerSkin[size])[index];
     availableSkins.remove(result);
     return result;
+  }
+
+  public void addBullet(double positionX, double positionY, double vx, double vy) {
+    Bullet bullet = new Bullet(this);
+    bullet.setPosition(positionX, positionY);
+    bullet.setVelocity(vx, vy);
+    bullets.add(bullet);
+  }
+
+  public Collection<Bullet> getBullets() {
+    return bullets;
   }
 
 }

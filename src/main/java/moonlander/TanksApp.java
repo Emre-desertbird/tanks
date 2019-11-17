@@ -13,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
@@ -38,15 +39,24 @@ public class TanksApp extends Application {
   public void start(Stage theStage) {
     theStage.setTitle("Tanks");
 
-    Group root = new Group();
-    Scene theScene = new Scene(root);
-    theStage.setScene(theScene);
-
+    Group group = new Group();
     Rectangle bg = new Rectangle(WIDTH, HEIGHT);
     bg.setFill(Color.DARKBLUE.darker().darker());
-
     Canvas canvas = new Canvas(WIDTH, HEIGHT);
-    root.getChildren().addAll(bg, canvas);
+    group.getChildren().addAll(bg, canvas);
+
+    BorderPane root = new BorderPane();
+    root.setCenter(group);
+    root.widthProperty().addListener((obs, oldV, newV)->{
+      canvas.setWidth(newV.doubleValue());
+      bg.setWidth(newV.doubleValue());
+    });
+    root.heightProperty().addListener((obs, oldV, newV)->{
+      canvas.setHeight(newV.doubleValue());
+      bg.setHeight(newV.doubleValue());
+    });
+    Scene theScene = new Scene(root);
+    theStage.setScene(theScene);
 
     theScene.setOnKeyPressed(new EventHandler<KeyEvent>() {
       public void handle(KeyEvent e) {
@@ -103,10 +113,16 @@ public class TanksApp extends Application {
         for (Tank player : world.getPlayers()) {
           player.update(elapsedTime);
         }
+        for (Bullet bullet : world.getBullets()) {
+          bullet.update(elapsedTime);
+        }
 
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         for (Tank player : world.getPlayers()) {
           player.render(gc);
+        }
+        for (Bullet bullet : world.getBullets()) {
+          bullet.render(gc);
         }
       }
     }.start();
