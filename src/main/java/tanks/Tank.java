@@ -10,13 +10,20 @@ public class Tank extends Entity {
   private final Controller controller;
   private final PlayerSkin skin;
 
+  
   private Sprite body = new Sprite();
+  private Sprite bodyCracks = new Sprite();
+  
   private Sprite turret = new Sprite();
+  private Sprite turretCracks = new Sprite();
+  
   private ImageAnimation anim = new ImageAnimation();
   private boolean engineActive = false;
 
   private boolean fire = false;
   private double fireCooldown = 0;
+  
+  private int cracks = 0;
 
   public Tank(World world, Controller controller, PlayerSkin skin) {
     this.world = world;
@@ -44,6 +51,10 @@ public class Tank extends Entity {
     body.setImage(skin.getBodyImage());
     turret.setImage(skin.getTurretImage());
     turret.setPivot(14, 0);
+    
+    bodyCracks.setImage(getClass().getResource("/graphics/cracks-lower.png"), 19*4, 21*4);
+    turretCracks.setImage(getClass().getResource("/graphics/cracks-upper.png"), 16*4, 9*4);
+    turretCracks.setPivot(14, 0);
     
     setCollisionRadius((double)8*4);
   }
@@ -81,6 +92,7 @@ public class Tank extends Entity {
       setVelocity(xAxis * factor, yAxis * factor);
       double rot = Math.toDegrees(Math.atan2(yAxis, xAxis));
       body.setRotation(rot);
+      bodyCracks.setRotation(rot);
     } else {
       setVelocity(0, 0);
     }
@@ -104,6 +116,7 @@ public class Tank extends Entity {
     if (Math.sqrt(xTur * xTur + yTur * yTur) > 0.9) {
       double rot = Math.toDegrees(Math.atan2(yTur, xTur));
       turret.setRotation(rot);
+      turretCracks.setRotation(rot);
     }
 
     if (fireCooldown>0) {
@@ -126,7 +139,14 @@ public class Tank extends Entity {
     gc.save();
     gc.translate(getPositionX(), getPositionY());
     body.render(gc);
+    if ( cracks > 2) {
+      bodyCracks.render(gc);
+    }
     turret.render(gc);
+    if ( cracks > 2) {
+      turretCracks.render(gc);
+    }
+    
     gc.restore();
   }
 
@@ -135,6 +155,7 @@ public class Tank extends Entity {
       ((RumbleController)controller).rumble(0.6f, 0.6f, 300);
       System.out.println(System.currentTimeMillis()+" Rumble");
     }
+    cracks++;
   }
 
 }
