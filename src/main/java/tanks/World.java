@@ -70,7 +70,7 @@ public class World {
     PlayerSkin skin = chooseSkin();
     if ( skin != null) {
       Tank tank = new Tank(this, ctrl, skin);
-      tank.setPosition(100, 100);
+      tank.setPosition(skin.getX()*width, skin.getY()*height);
       players.add(tank);
     }
   }

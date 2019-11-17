@@ -139,11 +139,11 @@ public class Tank extends Entity {
     gc.save();
     gc.translate(getPositionX(), getPositionY());
     body.render(gc);
-    if ( cracks > 2) {
+    if ( cracks > 10) {
       bodyCracks.render(gc);
     }
     turret.render(gc);
-    if ( cracks > 2) {
+    if ( cracks > 5) {
       turretCracks.render(gc);
     }
     
