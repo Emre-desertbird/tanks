@@ -30,7 +30,7 @@ public class TanksApp extends Application {
   SDL2ControllerManager controllerManager = new SDL2ControllerManager();
 
 
-  World world;
+  World world = new World();
   AtomicLong lastNanoTime = new AtomicLong(System.nanoTime());
   ArrayList<String> input = new ArrayList<String>();
   String typed = null;
@@ -44,16 +44,21 @@ public class TanksApp extends Application {
     bg.setFill(Color.DARKBLUE.darker().darker());
     Canvas canvas = new Canvas(WIDTH, HEIGHT);
     group.getChildren().addAll(bg, canvas);
+    
+    world.setWidth(WIDTH);
+    world.setHeight(HEIGHT);
 
     BorderPane root = new BorderPane();
     root.setCenter(group);
     root.widthProperty().addListener((obs, oldV, newV)->{
       canvas.setWidth(newV.doubleValue());
       bg.setWidth(newV.doubleValue());
+      world.setWidth(newV.doubleValue());
     });
     root.heightProperty().addListener((obs, oldV, newV)->{
       canvas.setHeight(newV.doubleValue());
       bg.setHeight(newV.doubleValue());
+      world.setHeight(newV.doubleValue());
     });
     Scene theScene = new Scene(root);
     theStage.setScene(theScene);
@@ -81,7 +86,7 @@ public class TanksApp extends Application {
 
     GraphicsContext gc = canvas.getGraphicsContext2D();
 
-    world = new World();
+    
 
     for (Controller ctrl : controllerManager.getControllers()) {
       addPlayer(ctrl);
@@ -110,6 +115,9 @@ public class TanksApp extends Application {
         } catch (SDL_Error sdl_error) {
           sdl_error.printStackTrace();
         }
+        
+        world.update(elapsedTime);
+        
         for (Tank player : world.getPlayers()) {
           player.update(elapsedTime);
         }

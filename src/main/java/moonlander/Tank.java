@@ -45,10 +45,6 @@ public class Tank extends Entity {
     body.setImage(skin.getBodyImage());
     turret.setImage(skin.getTurretImage());
     turret.setPivot(14, 0);
-
-    // anim.addImage(getClass().getResource("/graphics/moonlander2.png"));
-    // anim.addImage(getClass().getResource("/graphics/moonlander3.png"));
-    // anim.setNanoPausePerFrame(1000 * 1000 * 100);
   }
 
   public PlayerSkin getSkin() {

@@ -14,10 +14,42 @@ public class World {
   private Set<PlayerSkin> availableSkins = EnumSet.allOf(PlayerSkin.class);
   private List<Tank> players = new ArrayList<>();
   private List<Bullet> bullets = new ArrayList<>();
+  
+  private Set<Entity> toRemove = new HashSet<>();
+  
+  private double width;
+  private double height;
 
-  public void remove(Tank tank) {
-    players.remove(tank);
-    availableSkins.add(tank.getSkin());
+  public double getHeight() {
+    return height;
+  }
+  
+  public void setHeight(double height) {
+    this.height = height;
+  }
+  
+  public double getWidth() {
+    return width;
+  }
+  
+  public void setWidth(double width) {
+    this.width = width;
+  }
+  
+  public void update(double elapsedTime) {
+    for (Entity entity : toRemove) {
+      if ( entity instanceof Tank) {
+        players.remove((Tank)entity);
+        availableSkins.add(((Tank)entity).getSkin());
+      } else if ( entity instanceof Bullet) {
+        bullets.remove((Bullet)entity);
+      }
+    }
+    toRemove.clear();
+  }
+  
+  public void remove(Entity entity) {
+    toRemove.add(entity);
   }
 
   public Collection<Tank> getPlayers() {

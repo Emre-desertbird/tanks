@@ -23,6 +23,11 @@ public class Bullet extends Entity {
   @Override
   public void update(double elapsedTime) {
     super.update(elapsedTime);
+    double x = getPositionX();
+    double y = getPositionY();
+    if ( x < 10 || x > world.getWidth()+10 || y < 10 || y > world.getHeight()+10) {
+      world.remove(this);
+    }
   }
   
   @Override
