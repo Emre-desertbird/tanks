@@ -6,7 +6,7 @@ import javafx.scene.canvas.GraphicsContext;
 public abstract class Entity implements Cloneable {
 
   private double age = 0;
-  
+
   private double positionX;
   private double positionY;
   private double rotation;
@@ -42,7 +42,7 @@ public abstract class Entity implements Cloneable {
   public double getPositionX() {
     return positionX;
   }
-  
+
   public void setPositionX(double positionX) {
     this.positionX = positionX;
   }
@@ -50,7 +50,7 @@ public abstract class Entity implements Cloneable {
   public double getPositionY() {
     return positionY;
   }
-  
+
   public void setPositionY(double positionY) {
     this.positionY = positionY;
   }
@@ -102,7 +102,7 @@ public abstract class Entity implements Cloneable {
   public void setVelocityY(double velocityY) {
     this.velocityY = velocityY;
   }
-  
+
   public double getAge() {
     return age;
   }
@@ -116,21 +116,21 @@ public abstract class Entity implements Cloneable {
   public boolean collides(Entity other) {
     Double r1 = collisionRadius;
     Double r2 = other.getCollisionRadius();
-    if ( r1 == null || r2==null) {
+    if (r1 == null || r2 == null) {
       return false;
     }
 
     double x1 = positionX + (collisionCenterOffset == null ? 0 : collisionCenterOffset.getX());
     double y1 = positionY + (collisionCenterOffset == null ? 0 : collisionCenterOffset.getY());
-    double x2 = other.getPositionX()
-        + (other.getCollisionCenterOffset() == null ? 0 : other.getCollisionCenterOffset().getX());
-    double y2 = other.getPositionY()
-        + (other.getCollisionCenterOffset() == null ? 0 : other.getCollisionCenterOffset().getY());
+    double x2 =
+        other.getPositionX() + (other.getCollisionCenterOffset() == null ? 0 : other.getCollisionCenterOffset().getX());
+    double y2 =
+        other.getPositionY() + (other.getCollisionCenterOffset() == null ? 0 : other.getCollisionCenterOffset().getY());
 
     double dx = x1 - x2;
     double dy = y1 - y2;
     double dist = Math.sqrt(dx * dx + dy * dy);
-    
+
     return dist < r1 + r2;
   }
 

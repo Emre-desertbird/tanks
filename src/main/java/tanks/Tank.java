@@ -72,17 +72,18 @@ public class Tank extends Entity {
   }
 
   public void setEngineActive(boolean active) {
-    if (active == this.engineActive) {
+    if (active == engineActive) {
       return;
     }
-    this.engineActive = active;
-    if (this.engineActive) {
+    engineActive = active;
+    if (engineActive) {
       body.setImageAnimation(anim);
     } else {
       body.setImageAnimation(null);
     }
   }
 
+  @Override
   public void update(double elapsedTime) {
     float xAxis = controller.getAxis(0);
     float yAxis = controller.getAxis(1);
@@ -96,12 +97,12 @@ public class Tank extends Entity {
     } else {
       setVelocity(0, 0);
     }
-    for(Tank tank :world.getPlayers()) {
-      if ( tank != this && tank.collides(this)) {
+    for (Tank tank : world.getPlayers()) {
+      if (tank != this && tank.collides(this)) {
         double dx = getPositionX() - tank.getPositionX();
         double dy = getPositionY() - tank.getPositionY();
-        double magnitude = Math.sqrt(dx*dx+dy*dy);
-        setVelocity(dx/magnitude*100, dy/magnitude*100);
+        double magnitude = Math.sqrt(dx * dx + dy * dy);
+        setVelocity(dx / magnitude * 100, dy / magnitude * 100);
         rumble(0.2f);
       }
     }

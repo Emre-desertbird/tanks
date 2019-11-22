@@ -52,18 +52,18 @@ public class ImageAnimation {
   public void render(long nanotime, double posX, double posY, GraphicsContext gc) {
     if (isContinuous()) {
       int len = images.size();
-      int index = Ints.checkedCast((nanotime / nanoPausePerFrame) % len);
+      int index = Ints.checkedCast(nanotime / nanoPausePerFrame % len);
       Image image = images.get(index);
       gc.drawImage(image, posX, posY);
     } else if (isFinished()) {
       return;
     } else {
-      if ( nanoTimeStated == 0) {
+      if (nanoTimeStated == 0) {
         nanoTimeStated = nanotime;
       }
       int len = images.size();
-      int index = Ints.checkedCast(((nanotime-nanoTimeStated) / nanoPausePerFrame));
-      if ( index < len) {
+      int index = Ints.checkedCast((nanotime - nanoTimeStated) / nanoPausePerFrame);
+      if (index < len) {
         Image image = images.get(index);
         gc.drawImage(image, posX, posY);
       } else {

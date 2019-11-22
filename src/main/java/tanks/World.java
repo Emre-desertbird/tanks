@@ -15,50 +15,50 @@ public class World {
   private Set<PlayerSkin> availableSkins = EnumSet.allOf(PlayerSkin.class);
   private List<Tank> players = new ArrayList<>();
   private List<Entity> entities = new ArrayList<>();
-  
+
   private Set<Entity> toRemove = new HashSet<>();
   private List<Entity> toAdd = new ArrayList<>();
-  
+
   private double width;
   private double height;
 
   public double getHeight() {
     return height;
   }
-  
+
   public void setHeight(double height) {
     this.height = height;
   }
-  
+
   public double getWidth() {
     return width;
   }
-  
+
   public void setWidth(double width) {
     this.width = width;
   }
-  
+
   public Collection<Entity> getEntities() {
     return entities;
   }
-  
+
   public void update(double elapsedTime) {
     for (Entity entity : toRemove) {
-      if ( entity instanceof Tank) {
-        players.remove((Tank)entity);
-        availableSkins.add(((Tank)entity).getSkin());
-      } else if ( entity instanceof Bullet) {
-        entities.remove((Bullet)entity);
+      if (entity instanceof Tank) {
+        players.remove(entity);
+        availableSkins.add(((Tank) entity).getSkin());
+      } else if (entity instanceof Bullet) {
+        entities.remove(entity);
       }
     }
     toRemove.clear();
-    
+
     for (Entity entity : toAdd) {
       entities.add(entity);
     }
     toAdd.clear();
   }
-  
+
   public void remove(Entity entity) {
     toRemove.add(entity);
   }
@@ -69,16 +69,16 @@ public class World {
 
   public void addTank(Controller ctrl) {
     PlayerSkin skin = chooseSkin();
-    if ( skin != null) {
+    if (skin != null) {
       Tank tank = new Tank(this, ctrl, skin);
-      tank.setPosition(skin.getX()*width, skin.getY()*height);
+      tank.setPosition(skin.getX() * width, skin.getY() * height);
       players.add(tank);
     }
   }
 
   private PlayerSkin chooseSkin() {
     int size = availableSkins.size();
-    if ( size == 0) {
+    if (size == 0) {
       return null;
     }
     int index = random.nextInt(size);
@@ -100,7 +100,7 @@ public class World {
     explosion.setVelocity(vx, vy);
     toAdd.add(explosion);
   }
-  
+
   public void addSmallExplosion(double x, double y, double vx, double vy) {
     SmallExplosion explosion = new SmallExplosion(this);
     explosion.setPosition(x, y);

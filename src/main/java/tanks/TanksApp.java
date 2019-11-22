@@ -32,7 +32,7 @@ public class TanksApp extends Application {
   SDL2ControllerManager controllerManager = new SDL2ControllerManager();
   World world = new World();
   AtomicLong lastNanoTime = new AtomicLong(System.nanoTime());
-  ArrayList<String> input = new ArrayList<String>();
+  ArrayList<String> input = new ArrayList<>();
   String typed = null;
 
   @Override
@@ -64,14 +64,17 @@ public class TanksApp extends Application {
     theStage.setScene(theScene);
 
     theScene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+      @Override
       public void handle(KeyEvent e) {
         String code = e.getCode().toString();
-        if (!input.contains(code))
+        if (!input.contains(code)) {
           input.add(code);
+        }
       }
     });
 
     theScene.setOnKeyReleased(new EventHandler<KeyEvent>() {
+      @Override
       public void handle(KeyEvent e) {
         String code = e.getCode().toString();
         input.remove(code);
@@ -79,6 +82,7 @@ public class TanksApp extends Application {
     });
 
     theScene.setOnKeyTyped(new EventHandler<KeyEvent>() {
+      @Override
       public void handle(KeyEvent e) {
         typed = e.getCharacter();
       }
@@ -105,6 +109,7 @@ public class TanksApp extends Application {
     });
 
     new AnimationTimer() {
+      @Override
       public void handle(long currentNanoTime) {
         // calculate time since last update.
         double elapsedTime = (currentNanoTime - lastNanoTime.get()) / 1000000000.0;

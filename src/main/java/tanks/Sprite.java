@@ -1,7 +1,6 @@
 package tanks;
 
 import java.net.URL;
-import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -9,18 +8,18 @@ import javafx.scene.image.Image;
 public class Sprite implements Cloneable {
   private Image image;
   private ImageAnimation imageAnimation;
-  
+
   private double positionX;
   private double positionY;
-  
+
   private double width;
   private double height;
 
   private double pivotX;
   private double pivotY;
-  
+
   private double rotation;
-  
+
   private boolean mirrorX = false;
   private boolean mirrorY = false;
 
@@ -44,19 +43,19 @@ public class Sprite implements Cloneable {
   public double getPositionY() {
     return positionY;
   }
-  
+
   public double getPivotX() {
     return pivotX;
   }
-  
+
   public double getPivotY() {
     return pivotY;
   }
-  
+
   public void setRotation(double rotation) {
     this.rotation = rotation;
   }
-  
+
   public double getRotation() {
     return rotation;
   }
@@ -106,7 +105,7 @@ public class Sprite implements Cloneable {
     positionX = x;
     positionY = y;
   }
-  
+
   public void setPivot(double x, double y) {
     pivotX = x;
     pivotY = y;
@@ -118,9 +117,9 @@ public class Sprite implements Cloneable {
     gc.rotate(rotation);
     gc.translate(pivotX, pivotY);
     if (imageAnimation != null) {
-      imageAnimation.render(System.nanoTime(), -width/2, -height/2, gc);
+      imageAnimation.render(System.nanoTime(), -width / 2, -height / 2, gc);
     } else {
-      gc.drawImage(image, -width/2, -height/2);
+      gc.drawImage(image, -width / 2, -height / 2);
     }
     gc.restore();
   }
@@ -130,7 +129,7 @@ public class Sprite implements Cloneable {
   }
 
   public boolean intersects(Sprite s) {
-    return s.getBoundary().intersects(this.getBoundary());
+    return s.getBoundary().intersects(getBoundary());
   }
 
 }

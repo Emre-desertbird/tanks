@@ -32,8 +32,7 @@ public class Bullet extends Entity {
     if (getAge() > 0.05) {
       for (Tank tank : world.getPlayers()) {
         if (tank.collides(this)) {
-          world.addSmallExplosion(getPositionX(), getPositionY(), tank.getVelocityX(),
-              tank.getVelocityY());
+          world.addSmallExplosion(getPositionX(), getPositionY(), tank.getVelocityX(), tank.getVelocityY());
           world.remove(this);
           tank.hurt();
           return;
@@ -42,7 +41,7 @@ public class Bullet extends Entity {
       for (Bullet bullet : world.getBullets()) {
         if (this != bullet && bullet.collides(this)) {
           world.addSmallExplosion(getPositionX(), getPositionY(), getVelocityX(), getVelocityY());
-          world.remove(this);          
+          world.remove(this);
         }
       }
     }
