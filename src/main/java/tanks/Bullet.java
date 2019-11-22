@@ -6,7 +6,7 @@ public class Bullet extends Entity {
 
   private final World world;
   private final Sprite sprite;
-
+ 
   public Bullet(World world) {
     this.world = world;
     sprite = new Sprite();
@@ -49,7 +49,7 @@ public class Bullet extends Entity {
 
   @Override
   public void render(GraphicsContext gc) {
-    gc.save();
+    gc.save(); 
     gc.translate(getPositionX(), getPositionY());
     sprite.render(gc);
     gc.restore();

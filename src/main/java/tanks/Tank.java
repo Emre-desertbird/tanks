@@ -167,6 +167,9 @@ public class Tank extends Entity {
       world.remove(this);
       world.addLargeExplosion(getPositionX(), getPositionY(), getVelocityX(), getVelocityY());
       world.addTank(controller);
+      System.out.println(controller);      
+      world.deathcount();
+      world.showDeathcount();
     }
   }
 
@@ -176,5 +179,4 @@ public class Tank extends Entity {
       System.out.println(System.currentTimeMillis() + " Rumble");
     }
   }
-
 }

@@ -1,6 +1,7 @@
 package tanks;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.EnumSet;
 import java.util.HashSet;
@@ -19,9 +20,14 @@ public class World {
   private Set<Entity> toRemove = new HashSet<>();
   private List<Entity> toAdd = new ArrayList<>();
 
+
+  private int playercount;
+  private int deathcount[] = new int[2];
+  private int x = 0;
+
   private double width;
   private double height;
-
+  
   public double getHeight() {
     return height;
   }
@@ -112,4 +118,20 @@ public class World {
     return entities.stream().filter(Bullet.class::isInstance).map(Bullet.class::cast).collect(Collectors.toList());
   }
 
+  public void deathcount() {
+	  playercount = getPlayers().size() - 1;
+	  if(x == 0) {
+	      x++;
+	      deathcount = new int[playercount];
+	      for(int y=0; y<playercount; y++) {
+	    	  deathcount[y] = 0;
+	      }
+	  }
+	  deathcount[0] += 1;
+  }
+  
+  public void showDeathcount() {
+	  String getDeathcount = Arrays.toString(deathcount);
+	  System.out.println(getDeathcount);
+  }
 }
