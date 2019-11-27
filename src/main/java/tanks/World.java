@@ -22,12 +22,12 @@ public class World {
 
 
   private int playercount;
-  private int deathcount[] = new int[2];
-  private int x = 0;
+  private boolean setPlayercount = false;
+  private int deathcount[];
 
   private double width;
   private double height;
-  
+
   public double getHeight() {
     return height;
   }
@@ -119,19 +119,19 @@ public class World {
   }
 
   public void deathcount() {
-	  playercount = getPlayers().size() - 1;
-	  if(x == 0) {
-	      x++;
-	      deathcount = new int[playercount];
-	      for(int y=0; y<playercount; y++) {
-	    	  deathcount[y] = 0;
-	      }
-	  }
-	  deathcount[0] += 1;
+    playercount = getPlayers().size() - 1;
+    if (setPlayercount == false) {
+      deathcount = new int[playercount];
+      for (int y = 0; y < playercount; y++) {
+        deathcount[y] = 0;
+      }
+      setPlayercount = true;
+    }
+    deathcount[0] += 1;
   }
-  
+
   public void showDeathcount() {
-	  String getDeathcount = Arrays.toString(deathcount);
-	  System.out.println(getDeathcount);
+    String getDeathcount = Arrays.toString(deathcount);
+    System.out.println(getDeathcount);
   }
 }
