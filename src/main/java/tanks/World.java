@@ -21,7 +21,7 @@ public class World {
   private List<Entity> toAdd = new ArrayList<>();
 
 
-  private int playercount;
+  public int playercount;
   private boolean setPlayercount = false;
   private int deathcount[];
 
@@ -128,6 +128,22 @@ public class World {
       setPlayercount = true;
     }
     deathcount[0] += 1;
+  }
+
+  public String getDeathcountPlI() {
+    try {
+      return Integer.toString(deathcount[0]);
+    } catch (Exception e) {
+      return "0";
+    }
+  }
+
+  public String getDeathcountPlII() {
+    try {
+      return Integer.toString(deathcount[1]);
+    } catch (Exception e) {
+      return "0";
+    }
   }
 
   public void showDeathcount() {

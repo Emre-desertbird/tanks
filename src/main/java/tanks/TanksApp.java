@@ -17,12 +17,14 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import uk.co.electronstudio.sdl2gdx.SDL2ControllerManager;
 
 public class TanksApp extends Application {
   private static final int HEIGHT = 500;
-  private static final int WIDTH = 500;
+  private static final int WIDTH = 600;
 
   public static void main(String[] args) {
     launch(args);
@@ -90,7 +92,10 @@ public class TanksApp extends Application {
 
     GraphicsContext gc = canvas.getGraphicsContext2D();
 
-
+    Font theFont = Font.font("Helvetica", FontWeight.BOLD, 24);
+    gc.setFont(theFont);
+    gc.setStroke(Color.DARKGREY);
+    gc.setLineWidth(1);
 
     for (Controller ctrl : controllerManager.getControllers()) {
       addPlayer(ctrl);
@@ -136,6 +141,17 @@ public class TanksApp extends Application {
         }
         for (Entity entity : world.getEntities()) {
           entity.render(gc);
+        }
+
+        if (world.playercount >= 1) {
+          String deathcountOne = "Player 1 \nDeaths:" + world.getDeathcountPlI();
+          gc.fillText(deathcountOne, 10, 25);
+          gc.strokeText(deathcountOne, 10, 25);
+        }
+        if (world.playercount >= 2) {
+          String deathcountTwo = "Player 2 \nDeaths:" + world.getDeathcountPlII();
+          gc.fillText(deathcountTwo, world.getWidth() - 110, 25);
+          gc.strokeText(deathcountTwo, world.getWidth() - 110, 25);
         }
       }
     }.start();
