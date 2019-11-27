@@ -153,6 +153,16 @@ public class TanksApp extends Application {
           gc.fillText(deathcountTwo, world.getWidth() - 110, 25);
           gc.strokeText(deathcountTwo, world.getWidth() - 110, 25);
         }
+        if (world.playercount >= 3) {
+          String deathcountThree = "Player 3 \nDeaths:" + world.getDeathcountPlIII();
+          gc.fillText(deathcountThree, 10, world.getHeight() - 50);
+          gc.strokeText(deathcountThree, 10, world.getHeight() - 50);
+        }
+        if (world.playercount >= 4) {
+          String deathcountFour = "Player 4 \nDeaths:" + world.getDeathcountPlIV();
+          gc.fillText(deathcountFour, world.getWidth() - 110, world.getHeight() - 50);
+          gc.strokeText(deathcountFour, world.getWidth() - 110, world.getHeight() - 50);
+        }
       }
     }.start();
 

@@ -127,7 +127,7 @@ public class World {
       }
       setPlayercount = true;
     }
-    deathcount[0] += 1;
+    deathcount[0] += 1; // FIXME CoelkusuE 27.11.2019:
   }
 
   public String getDeathcountPlI() {
@@ -141,6 +141,22 @@ public class World {
   public String getDeathcountPlII() {
     try {
       return Integer.toString(deathcount[1]);
+    } catch (Exception e) {
+      return "0";
+    }
+  }
+
+  public String getDeathcountPlIII() {
+    try {
+      return Integer.toString(deathcount[2]);
+    } catch (Exception e) {
+      return "0";
+    }
+  }
+
+  public String getDeathcountPlIV() {
+    try {
+      return Integer.toString(deathcount[3]);
     } catch (Exception e) {
       return "0";
     }
