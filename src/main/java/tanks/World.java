@@ -22,7 +22,7 @@ public class World {
 
 
   public int playercount;
-  private boolean setPlayercount = false;
+  private boolean playercountSet = false;
   private int deathcount[];
 
   private double width;
@@ -118,16 +118,16 @@ public class World {
     return entities.stream().filter(Bullet.class::isInstance).map(Bullet.class::cast).collect(Collectors.toList());
   }
 
-  public void deathcount() {
+  public void deathcount(int player) {
     playercount = getPlayers().size() - 1;
-    if (setPlayercount == false) {
+    if (playercountSet == false) {
       deathcount = new int[playercount];
       for (int y = 0; y < playercount; y++) {
         deathcount[y] = 0;
       }
-      setPlayercount = true;
+      playercountSet = true;
     }
-    deathcount[0] += 1; // FIXME CoelkusuE 27.11.2019:
+    deathcount[player] += 1;
   }
 
   public String getDeathcountPlI() {

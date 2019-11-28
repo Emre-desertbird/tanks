@@ -10,7 +10,6 @@ public class Tank extends Entity {
   private final Controller controller;
   private final PlayerSkin skin;
 
-
   private Sprite body = new Sprite();
   private Sprite bodyCracks = new Sprite();
 
@@ -24,7 +23,7 @@ public class Tank extends Entity {
   private double fireCooldown = 0;
 
   private int cracks = 0;
-
+  
   public Tank(World world, Controller controller, PlayerSkin skin) {
     this.world = world;
     this.controller = controller;
@@ -167,11 +166,27 @@ public class Tank extends Entity {
       world.remove(this);
       world.addLargeExplosion(getPositionX(), getPositionY(), getVelocityX(), getVelocityY());
       world.addTank(controller);
-      System.out.println(controller);      
-      world.deathcount();
+      System.out.println(controller);
+      world.deathcount(getPlayerController(controller));
       world.showDeathcount();
     }
   }
+
+  private Integer getPlayerController(Controller ctrl) {
+		if(ctrl.toString().contains("instance:0")) {
+			return 0;
+		}
+		if(ctrl.toString().contains("instance:1")) {
+			return 1;
+		}
+		if(ctrl.toString().contains("instance:2")) {
+			return 2;
+		}
+		if(ctrl.toString().contains("instance:3")) {
+			return 3;
+		}
+		return null;
+	}
 
   private void rumble(float intensity) {
     if (controller instanceof RumbleController) {
