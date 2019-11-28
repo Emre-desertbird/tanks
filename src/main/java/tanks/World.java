@@ -1,7 +1,6 @@
 package tanks;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.EnumSet;
 import java.util.HashSet;
@@ -160,10 +159,5 @@ public class World {
     } catch (Exception e) {
       return "0";
     }
-  }
-
-  public void showDeathcount() {
-    String getDeathcount = Arrays.toString(deathcount);
-    System.out.println(getDeathcount);
   }
 }

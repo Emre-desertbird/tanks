@@ -168,7 +168,6 @@ public class Tank extends Entity {
       world.addTank(controller);
       System.out.println(controller);
       world.deathcount(getPlayerController(controller));
-      world.showDeathcount();
     }
   }
 
