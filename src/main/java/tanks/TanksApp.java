@@ -143,23 +143,23 @@ public class TanksApp extends Application {
           entity.render(gc);
         }
 
-        if (world.playercount >= 1) {
-          String deathcountOne = "Player 1 \nDeaths:" + world.getDeathcountPlI();
+        if (world.getPlayers().size() >= 1) {
+          String deathcountOne = "Player 1 \nDeaths: " + world.getDeathcountPlI();
           gc.fillText(deathcountOne, 10, 25);
           gc.strokeText(deathcountOne, 10, 25);
         }
-        if (world.playercount >= 2) {
-          String deathcountTwo = "Player 2 \nDeaths:" + world.getDeathcountPlII();
+        if (world.getPlayers().size() >= 2) {
+          String deathcountTwo = "Player 2 \nDeaths: " + world.getDeathcountPlII();
           gc.fillText(deathcountTwo, world.getWidth() - 110, 25);
           gc.strokeText(deathcountTwo, world.getWidth() - 110, 25);
         }
-        if (world.playercount >= 3) {
-          String deathcountThree = "Player 3 \nDeaths:" + world.getDeathcountPlIII();
+        if (world.getPlayers().size() >= 3) {
+          String deathcountThree = "Player 3 \nDeaths: " + world.getDeathcountPlIII();
           gc.fillText(deathcountThree, 10, world.getHeight() - 50);
           gc.strokeText(deathcountThree, 10, world.getHeight() - 50);
         }
-        if (world.playercount >= 4) {
-          String deathcountFour = "Player 4 \nDeaths:" + world.getDeathcountPlIV();
+        if (world.getPlayers().size() >= 4) {
+          String deathcountFour = "Player 4 \nDeaths: " + world.getDeathcountPlIV();
           gc.fillText(deathcountFour, world.getWidth() - 110, world.getHeight() - 50);
           gc.strokeText(deathcountFour, world.getWidth() - 110, world.getHeight() - 50);
         }
