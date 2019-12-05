@@ -86,15 +86,14 @@ public class TanksApp extends Application {
       }
 
       @Override
-      public void option() {
+      public void options() {
         // TODO Auto-generated method stub
 
       }
 
       @Override
       public void exit() {
-        // TODO Auto-generated method stub
-
+        theStage.close();
       }
     });
     Scene scene = new Scene(ctrl.getRoot());
@@ -149,7 +148,13 @@ public class TanksApp extends Application {
     theScene.setOnKeyTyped(new EventHandler<KeyEvent>() {
       @Override
       public void handle(KeyEvent e) {
-        typed = e.getCharacter();
+        if (e.getCharacter().matches("q")) {
+          try {
+            startMenu(theStage);
+          } catch (Exception e1) {
+            e1.printStackTrace();
+          }
+        }
       }
     });
 
@@ -210,9 +215,9 @@ public class TanksApp extends Application {
           gc.fillText(deathcountFour, world.getWidth() - 110, world.getHeight() - 50);
           gc.strokeText(deathcountFour, world.getWidth() - 110, world.getHeight() - 50);
         }
+
       }
     }.start();
     theStage.show();
-
   }
 }
