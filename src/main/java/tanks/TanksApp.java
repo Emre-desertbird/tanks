@@ -1,5 +1,6 @@
 package tanks;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicLong;
 import org.libsdl.SDL;
@@ -87,8 +88,11 @@ public class TanksApp extends Application {
 
       @Override
       public void options() {
-        // TODO Auto-generated method stub
-
+        try {
+          selectColour(theStage);
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
       }
 
       @Override
@@ -96,6 +100,16 @@ public class TanksApp extends Application {
         theStage.close();
       }
     });
+
+    Scene scene = new Scene(ctrl.getRoot());
+    theStage.setScene(scene);
+    theStage.show();
+  }
+
+  private void selectColour(Stage theStage) throws IOException {
+
+    theStage.setTitle("Tanks - Colour Select");
+    ColourSelectionController ctrl = ColourSelectionController.load();
     Scene scene = new Scene(ctrl.getRoot());
     theStage.setScene(scene);
     theStage.show();
@@ -215,7 +229,6 @@ public class TanksApp extends Application {
           gc.fillText(deathcountFour, world.getWidth() - 110, world.getHeight() - 50);
           gc.strokeText(deathcountFour, world.getWidth() - 110, world.getHeight() - 50);
         }
-
       }
     }.start();
     theStage.show();

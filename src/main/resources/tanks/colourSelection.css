@@ -1,0 +1,8 @@
+.background {
+  -fx-background-color: #696969;
+}
+
+.player-name {
+  -fx-text-fill: gray;
+  -fx-font-size: 120.0%;
+}

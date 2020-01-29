@@ -21,7 +21,7 @@ public class MenuController implements Initializable {
   interface Context {
     void start();
 
-    void options();
+    void options() throws IOException;
 
     void exit();
   }
@@ -47,7 +47,11 @@ public class MenuController implements Initializable {
     });
 
     optionsButton.setOnAction(e -> {
-      context.options();
+      try {
+        context.options();
+      } catch (IOException e1) {
+        e1.printStackTrace();
+      }
     });
 
     exitButton.setOnAction(e -> {
