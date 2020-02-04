@@ -7,8 +7,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
 
 public class ColourSelectionController implements Initializable {
 
@@ -33,17 +33,59 @@ public class ColourSelectionController implements Initializable {
   @FXML
   private Label labelPlayer4;
   @FXML
-  private ImageView colourPlayer1;
+  private Button bluePlayer1;
   @FXML
-  private ImageView colourPlayer2;
+  private Button greenPlayer1;
   @FXML
-  private ImageView colourPlayer3;
+  private Button magentaPlayer1;
   @FXML
-  private ImageView colourPlayer4;
+  private Button redPlayer1;
+  @FXML
+  private Button bluePlayer2;
+  @FXML
+  private Button greenPlayer2;
+  @FXML
+  private Button magentaPlayer2;
+  @FXML
+  private Button redPlayer2;
+  @FXML
+  private Button bluePlayer3;
+  @FXML
+  private Button greenPlayer3;
+  @FXML
+  private Button magentaPlayer3;
+  @FXML
+  private Button redPlayer3;
+  @FXML
+  private Button bluePlayer4;
+  @FXML
+  private Button greenPlayer4;
+  @FXML
+  private Button magentaPlayer4;
+  @FXML
+  private Button redPlayer4;
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+    bluePlayer1.setStyle("-fx-background-color: #0000ff");
+    greenPlayer1.setStyle("-fx-background-color: #008000");
+    magentaPlayer1.setStyle("-fx-background-color: #ff00ff");
+    redPlayer1.setStyle("-fx-background-color: #ff0000");
 
+    bluePlayer2.setStyle("-fx-background-color: #0000ff");
+    greenPlayer2.setStyle("-fx-background-color: #008000");
+    magentaPlayer2.setStyle("-fx-background-color: #ff00ff");
+    redPlayer2.setStyle("-fx-background-color: #ff0000");
+
+    bluePlayer3.setStyle("-fx-background-color: #0000ff");
+    greenPlayer3.setStyle("-fx-background-color: #008000");
+    magentaPlayer3.setStyle("-fx-background-color: #ff00ff");
+    redPlayer3.setStyle("-fx-background-color: #ff0000");
+
+    bluePlayer4.setStyle("-fx-background-color: #0000ff");
+    greenPlayer4.setStyle("-fx-background-color: #008000");
+    magentaPlayer4.setStyle("-fx-background-color: #ff00ff");
+    redPlayer4.setStyle("-fx-background-color: #ff0000");
   }
 
   public Parent getRoot() {

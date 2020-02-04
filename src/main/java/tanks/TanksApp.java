@@ -119,7 +119,7 @@ public class TanksApp extends Application {
     theStage.setTitle("Tanks");
     Group group = new Group();
     Rectangle bg = new Rectangle(WIDTH, HEIGHT);
-    bg.setFill(Color.DARKBLUE.darker().darker());
+    bg.setFill(Color.BLUE.darker());
     Canvas canvas = new Canvas(WIDTH, HEIGHT);
     group.getChildren().addAll(bg, canvas);
 
