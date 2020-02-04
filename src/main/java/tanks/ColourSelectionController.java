@@ -94,7 +94,7 @@ public class ColourSelectionController implements Initializable {
       bluePlayer2.setDisable(true);
       bluePlayer3.setDisable(true);
       bluePlayer4.setDisable(true);
-      bluePlayer2.setStyle("-fx-border-color: black; -fx-border-width: 5px");
+      bluePlayer1.setStyle("-fx-background-color: #0000ff; -fx-border-color: black; -fx-border-width: 6px");
     });
 
     bluePlayer2.setOnAction(e -> {
@@ -104,7 +104,147 @@ public class ColourSelectionController implements Initializable {
       bluePlayer1.setDisable(true);
       bluePlayer3.setDisable(true);
       bluePlayer4.setDisable(true);
-      bluePlayer2.setStyle("-fx-border-color: black; -fx-border-width: 5px");
+      bluePlayer2.setStyle("-fx-background-color: #0000ff; -fx-border-color: black; -fx-border-width: 6px");
+    });
+
+    bluePlayer3.setOnAction(e -> {
+      greenPlayer3.setDisable(true);
+      magentaPlayer3.setDisable(true);
+      redPlayer3.setDisable(true);
+      bluePlayer1.setDisable(true);
+      bluePlayer2.setDisable(true);
+      bluePlayer4.setDisable(true);
+      bluePlayer3.setStyle("-fx-background-color: #0000ff; -fx-border-color: black; -fx-border-width: 6px");
+    });
+
+    bluePlayer4.setOnAction(e -> {
+      greenPlayer4.setDisable(true);
+      magentaPlayer4.setDisable(true);
+      redPlayer4.setDisable(true);
+      bluePlayer1.setDisable(true);
+      bluePlayer2.setDisable(true);
+      bluePlayer3.setDisable(true);
+      bluePlayer4.setStyle("-fx-background-color: #0000ff; -fx-border-color: black; -fx-border-width: 6px");
+    });
+
+    greenPlayer1.setOnAction(e -> {
+      bluePlayer1.setDisable(true);
+      magentaPlayer1.setDisable(true);
+      redPlayer1.setDisable(true);
+      greenPlayer2.setDisable(true);
+      greenPlayer3.setDisable(true);
+      greenPlayer4.setDisable(true);
+      greenPlayer1.setStyle("-fx-background-color: #008000; -fx-border-color: black; -fx-border-width: 6px");
+    });
+
+    greenPlayer2.setOnAction(e -> {
+      bluePlayer2.setDisable(true);
+      magentaPlayer2.setDisable(true);
+      redPlayer2.setDisable(true);
+      greenPlayer1.setDisable(true);
+      greenPlayer3.setDisable(true);
+      greenPlayer4.setDisable(true);
+      greenPlayer2.setStyle("-fx-background-color: #008000; -fx-border-color: black; -fx-border-width: 6px");
+    });
+
+    greenPlayer3.setOnAction(e -> {
+      bluePlayer3.setDisable(true);
+      magentaPlayer3.setDisable(true);
+      redPlayer3.setDisable(true);
+      greenPlayer1.setDisable(true);
+      greenPlayer2.setDisable(true);
+      greenPlayer4.setDisable(true);
+      greenPlayer3.setStyle("-fx-background-color: #008000; -fx-border-color: black; -fx-border-width: 6px");
+    });
+
+    greenPlayer4.setOnAction(e -> {
+      bluePlayer4.setDisable(true);
+      magentaPlayer4.setDisable(true);
+      redPlayer4.setDisable(true);
+      greenPlayer1.setDisable(true);
+      greenPlayer2.setDisable(true);
+      greenPlayer3.setDisable(true);
+      greenPlayer4.setStyle("-fx-background-color: #008000; -fx-border-color: black; -fx-border-width: 6px");
+    });
+
+    magentaPlayer1.setOnAction(e -> {
+      bluePlayer1.setDisable(true);
+      greenPlayer1.setDisable(true);
+      redPlayer1.setDisable(true);
+      magentaPlayer2.setDisable(true);
+      magentaPlayer3.setDisable(true);
+      magentaPlayer4.setDisable(true);
+      magentaPlayer1.setStyle("-fx-background-color: #ff00ff; -fx-border-color: black; -fx-border-width: 6px");
+    });
+
+    magentaPlayer2.setOnAction(e -> {
+      bluePlayer2.setDisable(true);
+      greenPlayer2.setDisable(true);
+      redPlayer2.setDisable(true);
+      magentaPlayer1.setDisable(true);
+      magentaPlayer3.setDisable(true);
+      magentaPlayer4.setDisable(true);
+      magentaPlayer2.setStyle("-fx-background-color: #ff00ff; -fx-border-color: black; -fx-border-width: 6px");
+    });
+
+    magentaPlayer3.setOnAction(e -> {
+      bluePlayer3.setDisable(true);
+      greenPlayer3.setDisable(true);
+      redPlayer3.setDisable(true);
+      magentaPlayer1.setDisable(true);
+      magentaPlayer2.setDisable(true);
+      magentaPlayer4.setDisable(true);
+      magentaPlayer3.setStyle("-fx-background-color: #ff00ff; -fx-border-color: black; -fx-border-width: 6px");
+    });
+
+    magentaPlayer4.setOnAction(e -> {
+      bluePlayer4.setDisable(true);
+      greenPlayer4.setDisable(true);
+      redPlayer4.setDisable(true);
+      magentaPlayer1.setDisable(true);
+      magentaPlayer2.setDisable(true);
+      magentaPlayer3.setDisable(true);
+      magentaPlayer4.setStyle("-fx-background-color: #ff00ff; -fx-border-color: black; -fx-border-width: 6px");
+    });
+
+    redPlayer1.setOnAction(e -> {
+      bluePlayer1.setDisable(true);
+      greenPlayer1.setDisable(true);
+      magentaPlayer1.setDisable(true);
+      redPlayer2.setDisable(true);
+      redPlayer3.setDisable(true);
+      redPlayer4.setDisable(true);
+      redPlayer1.setStyle("-fx-background-color: #ff0000; -fx-border-color: black; -fx-border-width: 6px");
+    });
+
+    redPlayer2.setOnAction(e -> {
+      bluePlayer2.setDisable(true);
+      greenPlayer2.setDisable(true);
+      magentaPlayer2.setDisable(true);
+      redPlayer1.setDisable(true);
+      redPlayer3.setDisable(true);
+      redPlayer4.setDisable(true);
+      redPlayer2.setStyle("-fx-background-color: #ff0000; -fx-border-color: black; -fx-border-width: 6px");
+    });
+
+    redPlayer3.setOnAction(e -> {
+      bluePlayer3.setDisable(true);
+      greenPlayer3.setDisable(true);
+      magentaPlayer3.setDisable(true);
+      redPlayer1.setDisable(true);
+      redPlayer2.setDisable(true);
+      redPlayer4.setDisable(true);
+      redPlayer3.setStyle("-fx-background-color: #ff0000; -fx-border-color: black; -fx-border-width: 6px");
+    });
+
+    redPlayer4.setOnAction(e -> {
+      bluePlayer4.setDisable(true);
+      greenPlayer4.setDisable(true);
+      magentaPlayer4.setDisable(true);
+      redPlayer1.setDisable(true);
+      redPlayer2.setDisable(true);
+      redPlayer3.setDisable(true);
+      redPlayer4.setStyle("-fx-background-color: #ff0000; -fx-border-color: black; -fx-border-width: 6px");
     });
   }
 
