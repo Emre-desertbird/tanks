@@ -86,6 +86,26 @@ public class ColourSelectionController implements Initializable {
     greenPlayer4.setStyle("-fx-background-color: #008000");
     magentaPlayer4.setStyle("-fx-background-color: #ff00ff");
     redPlayer4.setStyle("-fx-background-color: #ff0000");
+
+    bluePlayer1.setOnAction(e -> {
+      greenPlayer1.setDisable(true);
+      magentaPlayer1.setDisable(true);
+      redPlayer1.setDisable(true);
+      bluePlayer2.setDisable(true);
+      bluePlayer3.setDisable(true);
+      bluePlayer4.setDisable(true);
+      bluePlayer2.setStyle("-fx-border-color: black; -fx-border-width: 5px");
+    });
+
+    bluePlayer2.setOnAction(e -> {
+      greenPlayer2.setDisable(true);
+      magentaPlayer2.setDisable(true);
+      redPlayer2.setDisable(true);
+      bluePlayer1.setDisable(true);
+      bluePlayer3.setDisable(true);
+      bluePlayer4.setDisable(true);
+      bluePlayer2.setStyle("-fx-border-color: black; -fx-border-width: 5px");
+    });
   }
 
   public Parent getRoot() {
