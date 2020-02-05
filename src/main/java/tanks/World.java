@@ -26,6 +26,45 @@ public class World {
   private double width;
   private double height;
 
+  public int colorPlayer1;
+  public int colorPlayer2;
+  public int colorPlayer3;
+  public int colorPlayer4;
+
+  public int getColorPlayer1() {
+    return colorPlayer1;
+  }
+
+  public void setColorPlayer1(int colorPlayer1) {
+    this.colorPlayer1 = colorPlayer1;
+  }
+
+  public int getColorPlayer2() {
+    return colorPlayer2;
+  }
+
+  public void setColorPlayer2(int colorPlayer2) {
+    this.colorPlayer2 = colorPlayer2;
+  }
+
+  public int getColorPlayer3() {
+    return colorPlayer3;
+  }
+
+  public void setColorPlayer3(int colorPlayer3) {
+    this.colorPlayer3 = colorPlayer3;
+  }
+
+  public int getColorPlayer4() {
+    return colorPlayer4;
+  }
+
+  public void setColorPlayer4(int colorPlayer4) {
+    this.colorPlayer4 = colorPlayer4;
+  }
+
+
+
   public double getHeight() {
     return height;
   }
@@ -49,7 +88,7 @@ public class World {
   public void update(double elapsedTime) {
     for (Entity entity : toRemove) {
       if (entity instanceof Tank) {
-        players.remove((Tank) entity);
+        players.remove(entity);
         availableSkins.add(((Tank) entity).getSkin());
       } else {
         entities.remove(entity);
@@ -72,7 +111,7 @@ public class World {
   }
 
   public void addTank(Controller ctrl) {
-    PlayerSkin skin = chooseSkin();
+    PlayerSkin skin = chooseSkin(ctrl);
     if (skin != null) {
       Tank tank = new Tank(this, ctrl, skin);
       tank.setPosition(skin.getX() * width, skin.getY() * height);
@@ -80,15 +119,44 @@ public class World {
     }
   }
 
-  private PlayerSkin chooseSkin() {
+  private PlayerSkin chooseSkin(Controller ctrl) {
     int size = availableSkins.size();
     if (size == 0) {
       return null;
     }
-    int index = random.nextInt(size);
-    PlayerSkin result = availableSkins.toArray(new PlayerSkin[size])[index];
+    PlayerSkin result = availableSkins.toArray(new PlayerSkin[size])[setPlayerControllerColor(ctrl)];
     availableSkins.remove(result);
     return result;
+  }
+
+  private Integer setPlayerControllerColor(Controller ctrl) {
+    int controller = getPlayerController(ctrl);
+    if (controller == 0) {
+      return getColorPlayer1();
+    } else if (controller == 1) {
+      return getColorPlayer2();
+    } else if (controller == 2) {
+      return getColorPlayer3();
+    } else if (controller == 3) {
+      return getColorPlayer4();
+    }
+    return null;
+  }
+
+  private Integer getPlayerController(Controller ctrl) {
+    if (ctrl.toString().contains("instance:0")) {
+      return 0;
+    }
+    if (ctrl.toString().contains("instance:1")) {
+      return 1;
+    }
+    if (ctrl.toString().contains("instance:2")) {
+      return 2;
+    }
+    if (ctrl.toString().contains("instance:3")) {
+      return 3;
+    }
+    return null;
   }
 
   public void addBullet(double positionX, double positionY, double vx, double vy) {

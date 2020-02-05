@@ -69,6 +69,8 @@ public class ColorSelectionController implements Initializable {
 
   private ColorSelectContext context;
 
+  World world = new World();
+
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     setButtonColor();
@@ -82,6 +84,7 @@ public class ColorSelectionController implements Initializable {
       bluePlayer4.setDisable(true);
       bluePlayer1.setStyle("-fx-background-color: #0000cd; -fx-border-color: black; -fx-border-width: 6px");
       buttonAction1();
+      world.setColorPlayer1(0);
     });
 
     bluePlayer2.setOnAction(e -> {
@@ -93,6 +96,7 @@ public class ColorSelectionController implements Initializable {
       bluePlayer4.setDisable(true);
       bluePlayer2.setStyle("-fx-background-color: #0000cd; -fx-border-color: black; -fx-border-width: 6px");
       buttonAction1();
+      world.setColorPlayer2(0);
     });
 
     bluePlayer3.setOnAction(e -> {
@@ -104,6 +108,7 @@ public class ColorSelectionController implements Initializable {
       bluePlayer4.setDisable(true);
       bluePlayer3.setStyle("-fx-background-color: #0000cd; -fx-border-color: black; -fx-border-width: 6px");
       buttonAction1();
+      world.setColorPlayer3(0);
     });
 
     bluePlayer4.setOnAction(e -> {
@@ -115,6 +120,7 @@ public class ColorSelectionController implements Initializable {
       bluePlayer3.setDisable(true);
       bluePlayer4.setStyle("-fx-background-color: #0000cd; -fx-border-color: black; -fx-border-width: 6px");
       buttonAction1();
+      world.setColorPlayer4(0);
     });
 
     greenPlayer1.setOnAction(e -> {
@@ -126,6 +132,7 @@ public class ColorSelectionController implements Initializable {
       greenPlayer4.setDisable(true);
       greenPlayer1.setStyle("-fx-background-color: #008000; -fx-border-color: black; -fx-border-width: 6px");
       buttonAction1();
+      world.setColorPlayer1(3);
     });
 
     greenPlayer2.setOnAction(e -> {
@@ -137,6 +144,7 @@ public class ColorSelectionController implements Initializable {
       greenPlayer4.setDisable(true);
       greenPlayer2.setStyle("-fx-background-color: #008000; -fx-border-color: black; -fx-border-width: 6px");
       buttonAction1();
+      world.setColorPlayer2(3);
     });
 
     greenPlayer3.setOnAction(e -> {
@@ -148,6 +156,7 @@ public class ColorSelectionController implements Initializable {
       greenPlayer4.setDisable(true);
       greenPlayer3.setStyle("-fx-background-color: #008000; -fx-border-color: black; -fx-border-width: 6px");
       buttonAction1();
+      world.setColorPlayer3(3);
     });
 
     greenPlayer4.setOnAction(e -> {
@@ -159,6 +168,7 @@ public class ColorSelectionController implements Initializable {
       greenPlayer3.setDisable(true);
       greenPlayer4.setStyle("-fx-background-color: #008000; -fx-border-color: black; -fx-border-width: 6px");
       buttonAction1();
+      world.setColorPlayer4(3);
     });
 
     yellowPlayer1.setOnAction(e -> {
@@ -170,6 +180,7 @@ public class ColorSelectionController implements Initializable {
       yellowPlayer4.setDisable(true);
       yellowPlayer1.setStyle("-fx-background-color: #daa520; -fx-border-color: black; -fx-border-width: 6px");
       buttonAction1();
+      world.setColorPlayer1(2);
     });
 
     yellowPlayer2.setOnAction(e -> {
@@ -181,6 +192,7 @@ public class ColorSelectionController implements Initializable {
       yellowPlayer4.setDisable(true);
       yellowPlayer2.setStyle("-fx-background-color: #daa520; -fx-border-color: black; -fx-border-width: 6px");
       buttonAction1();
+      world.setColorPlayer2(2);
     });
 
     yellowPlayer3.setOnAction(e -> {
@@ -192,6 +204,7 @@ public class ColorSelectionController implements Initializable {
       yellowPlayer4.setDisable(true);
       yellowPlayer3.setStyle("-fx-background-color: #daa520; -fx-border-color: black; -fx-border-width: 6px");
       buttonAction1();
+      world.setColorPlayer3(2);
     });
 
     yellowPlayer4.setOnAction(e -> {
@@ -203,6 +216,7 @@ public class ColorSelectionController implements Initializable {
       yellowPlayer3.setDisable(true);
       yellowPlayer4.setStyle("-fx-background-color: #daa520; -fx-border-color: black; -fx-border-width: 6px");
       buttonAction1();
+      world.setColorPlayer4(2);
     });
 
     redPlayer1.setOnAction(e -> {
@@ -214,6 +228,7 @@ public class ColorSelectionController implements Initializable {
       redPlayer4.setDisable(true);
       redPlayer1.setStyle("-fx-background-color: #ff0000; -fx-border-color: black; -fx-border-width: 6px");
       buttonAction1();
+      world.setColorPlayer1(1);
     });
 
     redPlayer2.setOnAction(e -> {
@@ -225,6 +240,7 @@ public class ColorSelectionController implements Initializable {
       redPlayer4.setDisable(true);
       redPlayer2.setStyle("-fx-background-color: #ff0000; -fx-border-color: black; -fx-border-width: 6px");
       buttonAction1();
+      world.setColorPlayer2(1);
     });
 
     redPlayer3.setOnAction(e -> {
@@ -236,6 +252,7 @@ public class ColorSelectionController implements Initializable {
       redPlayer4.setDisable(true);
       redPlayer3.setStyle("-fx-background-color: #ff0000; -fx-border-color: black; -fx-border-width: 6px");
       buttonAction1();
+      world.setColorPlayer3(1);
     });
 
     redPlayer4.setOnAction(e -> {
@@ -247,6 +264,7 @@ public class ColorSelectionController implements Initializable {
       redPlayer3.setDisable(true);
       redPlayer4.setStyle("-fx-background-color: #ff0000; -fx-border-color: black; -fx-border-width: 6px");
       buttonAction1();
+      world.setColorPlayer4(1);
     });
   }
 
