@@ -1,5 +1,6 @@
 package tanks;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicLong;
 import org.libsdl.SDL;
@@ -17,31 +18,108 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+import tanks.MenuController.Context;
 import uk.co.electronstudio.sdl2gdx.SDL2ControllerManager;
 
 public class TanksApp extends Application {
-  private static final int HEIGHT = 500;
-  private static final int WIDTH = 500;
+  public static final int HEIGHT = 500;
+  public static final int WIDTH = 600;
 
   public static void main(String[] args) {
     launch(args);
     SDL.SDL_SetHint("SDL_XINPUT_ENABLED", "1");
   }
 
+
   SDL2ControllerManager controllerManager = new SDL2ControllerManager();
   World world = new World();
   AtomicLong lastNanoTime = new AtomicLong(System.nanoTime());
-  ArrayList<String> input = new ArrayList<String>();
+  ArrayList<String> input = new ArrayList<>();
   String typed = null;
 
   @Override
-  public void start(Stage theStage) {
-    theStage.setTitle("Tanks");
+  public void start(Stage theStage) throws Exception {
+    for (Controller ctrl : controllerManager.getControllers()) {
+      addPlayer(ctrl);
+    }
+    controllerManager.addListener(new ControllerAdapter() {
+      @Override
+      public void connected(Controller ctrl) {
+        addPlayer(ctrl);
+      }
 
+      @Override
+      public void disconnected(Controller ctrl) {
+        removePlayer(ctrl);
+      }
+    });
+
+    startMenu(theStage);
+
+  }
+
+  private void addPlayer(Controller ctrl) {
+    System.out.println("TanksApp.addPlayer() ctrl=" + ctrl);
+    world.addTank(ctrl);
+  }
+
+  private void removePlayer(Controller ctrl) {
+    for (Tank tank : world.getPlayers()) {
+      if (tank.hasController(ctrl)) {
+        world.remove(tank);
+        break;
+      }
+    }
+  }
+
+  private void startMenu(Stage theStage) throws Exception {
+
+    theStage.setTitle("Tanks - Menu");
+    MenuController ctrl = MenuController.load();
+    ctrl.setContext(new Context() {
+
+      @Override
+      public void start() {
+        startGame(theStage);
+      }
+
+      @Override
+      public void options() {
+        try {
+          selectColor(theStage);
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+      }
+
+      @Override
+      public void exit() {
+        theStage.close();
+      }
+    });
+
+    Scene scene = new Scene(ctrl.getRoot());
+    theStage.setScene(scene);
+    theStage.show();
+  }
+
+  private void selectColor(Stage theStage) throws IOException {
+
+    theStage.setTitle("Tanks - Colour Select");
+    ColorSelectionController ctrl = ColorSelectionController.load();
+    Scene scene = new Scene(ctrl.getRoot());
+    theStage.setScene(scene);
+    theStage.show();
+  }
+
+  private void startGame(Stage theStage) {
+    theStage.setTitle("Tanks");
     Group group = new Group();
     Rectangle bg = new Rectangle(WIDTH, HEIGHT);
-    bg.setFill(Color.DARKBLUE.darker().darker());
+    bg.setFill(Color.BLUE.darker());
     Canvas canvas = new Canvas(WIDTH, HEIGHT);
     group.getChildren().addAll(bg, canvas);
 
@@ -64,14 +142,17 @@ public class TanksApp extends Application {
     theStage.setScene(theScene);
 
     theScene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+      @Override
       public void handle(KeyEvent e) {
         String code = e.getCode().toString();
-        if (!input.contains(code))
+        if (!input.contains(code)) {
           input.add(code);
+        }
       }
     });
 
     theScene.setOnKeyReleased(new EventHandler<KeyEvent>() {
+      @Override
       public void handle(KeyEvent e) {
         String code = e.getCode().toString();
         input.remove(code);
@@ -79,32 +160,20 @@ public class TanksApp extends Application {
     });
 
     theScene.setOnKeyTyped(new EventHandler<KeyEvent>() {
+      @Override
       public void handle(KeyEvent e) {
-        typed = e.getCharacter();
+        if (e.getCharacter().matches("q")) {
+          try {
+            startMenu(theStage);
+          } catch (Exception e1) {
+            e1.printStackTrace();
+          }
+        }
       }
-    });
-
-    GraphicsContext gc = canvas.getGraphicsContext2D();
-
-
-
-    for (Controller ctrl : controllerManager.getControllers()) {
-      addPlayer(ctrl);
-    }
-    controllerManager.addListener(new ControllerAdapter() {
-      @Override
-      public void connected(Controller ctrl) {
-        addPlayer(ctrl);
-      }
-
-      @Override
-      public void disconnected(Controller ctrl) {
-        removePlayer(ctrl);
-      }
-
     });
 
     new AnimationTimer() {
+      @Override
       public void handle(long currentNanoTime) {
         // calculate time since last update.
         double elapsedTime = (currentNanoTime - lastNanoTime.get()) / 1000000000.0;
@@ -125,6 +194,13 @@ public class TanksApp extends Application {
           entity.update(elapsedTime);
         }
 
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+
+        Font theFont = Font.font("Helvetica", FontWeight.BOLD, 24);
+        gc.setFont(theFont);
+        gc.setStroke(Color.DARKGREY);
+        gc.setLineWidth(1);
+
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         for (Tank player : world.getPlayers()) {
           player.render(gc);
@@ -132,24 +208,29 @@ public class TanksApp extends Application {
         for (Entity entity : world.getEntities()) {
           entity.render(gc);
         }
+
+        if (world.getPlayers().size() >= 1) {
+          String deathcountOne = "Player 1 \nDeaths: " + world.getDeathcountPlI();
+          gc.fillText(deathcountOne, 10, 25);
+          gc.strokeText(deathcountOne, 10, 25);
+        }
+        if (world.getPlayers().size() >= 2) {
+          String deathcountTwo = "Player 2 \nDeaths: " + world.getDeathcountPlII();
+          gc.fillText(deathcountTwo, world.getWidth() - 110, 25);
+          gc.strokeText(deathcountTwo, world.getWidth() - 110, 25);
+        }
+        if (world.getPlayers().size() >= 3) {
+          String deathcountThree = "Player 3 \nDeaths: " + world.getDeathcountPlIII();
+          gc.fillText(deathcountThree, 10, world.getHeight() - 50);
+          gc.strokeText(deathcountThree, 10, world.getHeight() - 50);
+        }
+        if (world.getPlayers().size() >= 4) {
+          String deathcountFour = "Player 4 \nDeaths: " + world.getDeathcountPlIV();
+          gc.fillText(deathcountFour, world.getWidth() - 110, world.getHeight() - 50);
+          gc.strokeText(deathcountFour, world.getWidth() - 110, world.getHeight() - 50);
+        }
       }
     }.start();
-
     theStage.show();
   }
-
-  private void addPlayer(Controller ctrl) {
-    System.out.println("TanksApp.addPlayer() ctrl=" + ctrl);
-    world.addTank(ctrl);
-  }
-
-  private void removePlayer(Controller ctrl) {
-    for (Tank tank : world.getPlayers()) {
-      if (tank.hasController(ctrl)) {
-        world.remove(tank);
-        break;
-      }
-    }
-  }
-
 }

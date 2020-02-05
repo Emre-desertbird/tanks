@@ -19,6 +19,10 @@ public class World {
   private Set<Entity> toRemove = new HashSet<>();
   private List<Entity> toAdd = new ArrayList<>();
 
+  public int playercount;
+  private boolean playercountSet = false;
+  private int deathcount[];
+
   private double width;
   private double height;
 
@@ -109,8 +113,51 @@ public class World {
   }
 
   public Collection<Bullet> getBullets() {
-    return entities.stream().filter(Bullet.class::isInstance).map(Bullet.class::cast)
-        .collect(Collectors.toList());
+    return entities.stream().filter(Bullet.class::isInstance).map(Bullet.class::cast).collect(Collectors.toList());
+  }
+
+  public void deathcount(int player) {
+    playercount = getPlayers().size() - 1;
+    if (playercountSet == false) {
+      deathcount = new int[playercount];
+      for (int y = 0; y < playercount; y++) {
+        deathcount[y] = 0;
+      }
+      playercountSet = true;
+    }
+    deathcount[player] += 1;
+  }
+
+  public String getDeathcountPlI() {
+    try {
+      return Integer.toString(deathcount[0]);
+    } catch (Exception e) {
+      return "0";
+    }
+  }
+
+  public String getDeathcountPlII() {
+    try {
+      return Integer.toString(deathcount[1]);
+    } catch (Exception e) {
+      return "0";
+    }
+  }
+
+  public String getDeathcountPlIII() {
+    try {
+      return Integer.toString(deathcount[2]);
+    } catch (Exception e) {
+      return "0";
+    }
+  }
+
+  public String getDeathcountPlIV() {
+    try {
+      return Integer.toString(deathcount[3]);
+    } catch (Exception e) {
+      return "0";
+    }
   }
 
   public void addHealthPack(double x, double y) {

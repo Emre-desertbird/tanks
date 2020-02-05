@@ -82,17 +82,18 @@ public class Tank extends Entity {
   }
 
   public void setEngineActive(boolean active) {
-    if (active == this.engineActive) {
+    if (active == engineActive) {
       return;
     }
-    this.engineActive = active;
-    if (this.engineActive) {
+    engineActive = active;
+    if (engineActive) {
       body.setImageAnimation(anim);
     } else {
       body.setImageAnimation(null);
     }
   }
 
+  @Override
   public void update(double elapsedTime) {
     float xAxis = controller.getAxis(0);
     float yAxis = controller.getAxis(1);
@@ -156,8 +157,7 @@ public class Tank extends Entity {
       Point2D ptSrc = new Point2D(50, 0);
       Point2D ptDst = trans.transform(ptSrc);
 
-      world.addBullet(ptDst.getX(), ptDst.getY(), vx * factor,
-          vy * factor);
+      world.addBullet(ptDst.getX(), ptDst.getY(), vx * factor, vy * factor);
     }
 
     bodyCracks.setEnabled(cracks > 10);
@@ -180,7 +180,25 @@ public class Tank extends Entity {
       world.remove(this);
       world.addLargeExplosion(getPositionX(), getPositionY(), getVelocityX(), getVelocityY());
       world.addTank(controller);
+
+      world.deathcount(getPlayerController(controller));
     }
+  }
+
+  private Integer getPlayerController(Controller ctrl) {
+    if (ctrl.toString().contains("instance:0")) {
+      return 0;
+    }
+    if (ctrl.toString().contains("instance:1")) {
+      return 1;
+    }
+    if (ctrl.toString().contains("instance:2")) {
+      return 2;
+    }
+    if (ctrl.toString().contains("instance:3")) {
+      return 3;
+    }
+    return null;
   }
 
   private void rumble(float intensity) {
