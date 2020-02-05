@@ -21,6 +21,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+import tanks.ColorSelectionController.ColorSelectContext;
 import tanks.MenuController.Context;
 import uk.co.electronstudio.sdl2gdx.SDL2ControllerManager;
 
@@ -83,16 +84,16 @@ public class TanksApp extends Application {
 
       @Override
       public void start() {
-        startGame(theStage);
-      }
-
-      @Override
-      public void options() {
         try {
           selectColor(theStage);
         } catch (IOException e) {
           e.printStackTrace();
         }
+      }
+
+      @Override
+      public void options() {
+
       }
 
       @Override
@@ -113,6 +114,13 @@ public class TanksApp extends Application {
     Scene scene = new Scene(ctrl.getRoot());
     theStage.setScene(scene);
     theStage.show();
+
+    ctrl.setContext(new ColorSelectContext() {
+      @Override
+      public void start() {
+        startGame(theStage);
+      }
+    });
   }
 
   private void startGame(Stage theStage) {
