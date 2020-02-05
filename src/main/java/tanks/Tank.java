@@ -2,13 +2,16 @@ package tanks;
 
 import com.badlogic.gdx.controllers.Controller;
 import com.badlogic.gdx.controllers.ControllerAdapter;
+import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.transform.Affine;
 import uk.co.electronstudio.sdl2gdx.RumbleController;
 
 public class Tank extends Entity {
   private final World world;
   private final Controller controller;
   private final PlayerSkin skin;
+
 
   private Sprite body = new Sprite();
   private Sprite bodyCracks = new Sprite();
@@ -23,7 +26,7 @@ public class Tank extends Entity {
   private double fireCooldown = 0;
 
   private int cracks = 0;
-  
+
   public Tank(World world, Controller controller, PlayerSkin skin) {
     this.world = world;
     this.controller = controller;
@@ -47,13 +50,21 @@ public class Tank extends Entity {
         return false;
       }
     });
-    body.setImage(skin.getBodyImage());
-    turret.setImage(skin.getTurretImage());
-    turret.setPivot(14, 0);
 
+    // body.setPivot(-100, 0);
+    // body.setPosition(-200, 0);
+    body.setImage(skin.getBodyImage());
     bodyCracks.setImage(getClass().getResource("/graphics/cracks-lower.png"), 19 * 4, 21 * 4);
+    body.getChildren().add(bodyCracks);
+
+    turret.setImage(skin.getTurretImage());
     turretCracks.setImage(getClass().getResource("/graphics/cracks-upper.png"), 16 * 4, 9 * 4);
-    turretCracks.setPivot(14, 0);
+    turret.getChildren().add(turretCracks);
+
+    body.getChildren().add(turret);
+
+    turret.setPosition(-20, 0);
+    turret.setPivot(25, 0);
 
     setCollisionRadius((double) 8 * 4);
   }
@@ -71,28 +82,26 @@ public class Tank extends Entity {
   }
 
   public void setEngineActive(boolean active) {
-    if (active == engineActive) {
+    if (active == this.engineActive) {
       return;
     }
-    engineActive = active;
-    if (engineActive) {
+    this.engineActive = active;
+    if (this.engineActive) {
       body.setImageAnimation(anim);
     } else {
       body.setImageAnimation(null);
     }
   }
 
-  @Override
   public void update(double elapsedTime) {
     float xAxis = controller.getAxis(0);
     float yAxis = controller.getAxis(1);
 
     if (Math.sqrt(xAxis * xAxis + yAxis * yAxis) > 0.2) {
-      float factor = 250.0f;
+      double factor = 250;
       setVelocity(xAxis * factor, yAxis * factor);
       double rot = Math.toDegrees(Math.atan2(yAxis, xAxis));
       body.setRotation(rot);
-      bodyCracks.setRotation(rot);
     } else {
       setVelocity(0, 0);
     }
@@ -124,8 +133,8 @@ public class Tank extends Entity {
     float yTur = controller.getAxis(3);
     if (Math.sqrt(xTur * xTur + yTur * yTur) > 0.9) {
       double rot = Math.toDegrees(Math.atan2(yTur, xTur));
-      turret.setRotation(rot);
-      turretCracks.setRotation(rot);
+
+      turret.setRotation(rot - body.getRotation());
     }
 
     if (fireCooldown > 0) {
@@ -134,13 +143,25 @@ public class Tank extends Entity {
 
     if (fire && fireCooldown <= 0) {
       fireCooldown = 0.15;
-      double rot = turret.getRotation();
+      double rot = body.getRotation() + turret.getRotation();
       double vx = Math.cos(Math.toRadians(rot));
       double vy = Math.sin(Math.toRadians(rot));
       double factor = 550;
-      world.addBullet(getPositionX() + turret.getPositionX() + vx * 40,
-          getPositionY() + turret.getPositionY() + vy * 40, vx * factor, vy * factor);
+
+      Affine trans = new Affine();
+      trans.appendTranslation(getPositionX(), getPositionY());
+      trans.append(body.getAffine());
+      trans.append(turret.getAffine());
+
+      Point2D ptSrc = new Point2D(50, 0);
+      Point2D ptDst = trans.transform(ptSrc);
+
+      world.addBullet(ptDst.getX(), ptDst.getY(), vx * factor,
+          vy * factor);
     }
+
+    bodyCracks.setEnabled(cracks > 10);
+    turretCracks.setEnabled(cracks > 5);
   }
 
   @Override
@@ -148,14 +169,6 @@ public class Tank extends Entity {
     gc.save();
     gc.translate(getPositionX(), getPositionY());
     body.render(gc);
-    if (cracks > 10) {
-      bodyCracks.render(gc);
-    }
-    turret.render(gc);
-    if (cracks > 5) {
-      turretCracks.render(gc);
-    }
-
     gc.restore();
   }
 
@@ -163,29 +176,12 @@ public class Tank extends Entity {
     rumble(0.6f);
     cracks++;
     if (cracks == 20) {
+      world.addHealthPack(getPositionX(), getPositionY());
       world.remove(this);
       world.addLargeExplosion(getPositionX(), getPositionY(), getVelocityX(), getVelocityY());
       world.addTank(controller);
-      System.out.println(controller);
-      world.deathcount(getPlayerController(controller));
     }
   }
-
-  private Integer getPlayerController(Controller ctrl) {
-		if(ctrl.toString().contains("instance:0")) {
-			return 0;
-		}
-		if(ctrl.toString().contains("instance:1")) {
-			return 1;
-		}
-		if(ctrl.toString().contains("instance:2")) {
-			return 2;
-		}
-		if(ctrl.toString().contains("instance:3")) {
-			return 3;
-		}
-		return null;
-	}
 
   private void rumble(float intensity) {
     if (controller instanceof RumbleController) {
@@ -193,4 +189,12 @@ public class Tank extends Entity {
       System.out.println(System.currentTimeMillis() + " Rumble");
     }
   }
+
+  public void addHealth(HealthPack healthPack) {
+    cracks = 0;
+    for (int i = 0; i < 10; ++i) {
+      world.addStar(healthPack.getPositionX(), healthPack.getPositionY());
+    }
+  }
+
 }

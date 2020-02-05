@@ -6,7 +6,7 @@ public class Bullet extends Entity {
 
   private final World world;
   private final Sprite sprite;
- 
+
   public Bullet(World world) {
     this.world = world;
     sprite = new Sprite();
@@ -32,7 +32,8 @@ public class Bullet extends Entity {
     if (getAge() > 0.05) {
       for (Tank tank : world.getPlayers()) {
         if (tank.collides(this)) {
-          world.addSmallExplosion(getPositionX(), getPositionY(), tank.getVelocityX(), tank.getVelocityY());
+          world.addSmallExplosion(getPositionX(), getPositionY(), tank.getVelocityX(),
+              tank.getVelocityY());
           world.remove(this);
           tank.hurt();
           return;
@@ -41,7 +42,7 @@ public class Bullet extends Entity {
       for (Bullet bullet : world.getBullets()) {
         if (this != bullet && bullet.collides(this)) {
           world.addSmallExplosion(getPositionX(), getPositionY(), getVelocityX(), getVelocityY());
-          world.remove(this);
+          world.remove(this);          
         }
       }
     }
@@ -49,7 +50,7 @@ public class Bullet extends Entity {
 
   @Override
   public void render(GraphicsContext gc) {
-    gc.save(); 
+    gc.save();
     gc.translate(getPositionX(), getPositionY());
     sprite.render(gc);
     gc.restore();
