@@ -67,25 +67,7 @@ public class ColourSelectionController implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    bluePlayer1.setStyle("-fx-background-color: #0000ff");
-    greenPlayer1.setStyle("-fx-background-color: #008000");
-    magentaPlayer1.setStyle("-fx-background-color: #ff00ff");
-    redPlayer1.setStyle("-fx-background-color: #ff0000");
-
-    bluePlayer2.setStyle("-fx-background-color: #0000ff");
-    greenPlayer2.setStyle("-fx-background-color: #008000");
-    magentaPlayer2.setStyle("-fx-background-color: #ff00ff");
-    redPlayer2.setStyle("-fx-background-color: #ff0000");
-
-    bluePlayer3.setStyle("-fx-background-color: #0000ff");
-    greenPlayer3.setStyle("-fx-background-color: #008000");
-    magentaPlayer3.setStyle("-fx-background-color: #ff00ff");
-    redPlayer3.setStyle("-fx-background-color: #ff0000");
-
-    bluePlayer4.setStyle("-fx-background-color: #0000ff");
-    greenPlayer4.setStyle("-fx-background-color: #008000");
-    magentaPlayer4.setStyle("-fx-background-color: #ff00ff");
-    redPlayer4.setStyle("-fx-background-color: #ff0000");
+    setButtonColor();
 
     bluePlayer1.setOnAction(e -> {
       greenPlayer1.setDisable(true);
@@ -246,6 +228,28 @@ public class ColourSelectionController implements Initializable {
       redPlayer3.setDisable(true);
       redPlayer4.setStyle("-fx-background-color: #ff0000; -fx-border-color: black; -fx-border-width: 6px");
     });
+  }
+
+  private void setButtonColor() {
+    bluePlayer1.setStyle("-fx-background-color: #0000ff");
+    greenPlayer1.setStyle("-fx-background-color: #008000");
+    magentaPlayer1.setStyle("-fx-background-color: #ff00ff");
+    redPlayer1.setStyle("-fx-background-color: #ff0000");
+
+    bluePlayer2.setStyle("-fx-background-color: #0000ff");
+    greenPlayer2.setStyle("-fx-background-color: #008000");
+    magentaPlayer2.setStyle("-fx-background-color: #ff00ff");
+    redPlayer2.setStyle("-fx-background-color: #ff0000");
+
+    bluePlayer3.setStyle("-fx-background-color: #0000ff");
+    greenPlayer3.setStyle("-fx-background-color: #008000");
+    magentaPlayer3.setStyle("-fx-background-color: #ff00ff");
+    redPlayer3.setStyle("-fx-background-color: #ff0000");
+
+    bluePlayer4.setStyle("-fx-background-color: #0000ff");
+    greenPlayer4.setStyle("-fx-background-color: #008000");
+    magentaPlayer4.setStyle("-fx-background-color: #ff00ff");
+    redPlayer4.setStyle("-fx-background-color: #ff0000");
   }
 
   public Parent getRoot() {
