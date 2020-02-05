@@ -10,12 +10,12 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
-public class ColourSelectionController implements Initializable {
+public class ColorSelectionController implements Initializable {
 
 
-  public static ColourSelectionController load() throws IOException {
+  public static ColorSelectionController load() throws IOException {
     FXMLLoader loader = new FXMLLoader();
-    loader.setLocation(ColourSelectionController.class.getResource("colourSelection.fxml"));
+    loader.setLocation(ColorSelectionController.class.getResource("colorSelection.fxml"));
     loader.load();
     return loader.getController();
   }

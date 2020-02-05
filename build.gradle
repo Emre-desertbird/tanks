@@ -4,22 +4,40 @@ plugins {
     id 'eclipse'
 }
 
+ext {
+	javafxVersion = '12.0.2'
+	platform = 'win' // 'mac'
+}
+
 ext.libs = [
 	guava:                    'com.google.guava:guava:27.0.1-jre',
-	sdl2gdx:                  "uk.co.electronstudio.sdl2gdx:sdl2gdx:1.0.+",
+	javafx:                    ["org.openjfx:javafx-base:${javafxVersion}:${platform}",
+                              "org.openjfx:javafx-graphics:${javafxVersion}:${platform}",
+                              "org.openjfx:javafx-controls:${javafxVersion}:${platform}",
+                              "org.openjfx:javafx-fxml:${javafxVersion}:${platform}",
+                              "org.openjfx:javafx-web:${javafxVersion}:${platform}",
+                              "org.openjfx:javafx-media:${javafxVersion}:${platform}"],
+    junit:                      'org.junit.jupiter:junit-jupiter:5.5.1',
+    sdl2gdx:                  "uk.co.electronstudio.sdl2gdx:sdl2gdx:1.0.+",
 ]
 
-java {
- sourceCompatibility = JavaVersion.VERSION_1_8
- targetCompatibility = JavaVersion.VERSION_1_8
+repositories {
+    mavenCentral()
+    jcenter() 
 }
 
-repositories {
-    jcenter()
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_12
+    targetCompatibility = JavaVersion.VERSION_12
 }
+
 
 dependencies {
     compile libs.guava
+    compile libs.javafx
     compile libs.sdl2gdx
+    testCompile libs.junit
 }
 
+mainClassName = 'tanks.Main'

@@ -89,7 +89,7 @@ public class TanksApp extends Application {
       @Override
       public void options() {
         try {
-          selectColour(theStage);
+          selectColor(theStage);
         } catch (IOException e) {
           e.printStackTrace();
         }
@@ -106,10 +106,10 @@ public class TanksApp extends Application {
     theStage.show();
   }
 
-  private void selectColour(Stage theStage) throws IOException {
+  private void selectColor(Stage theStage) throws IOException {
 
     theStage.setTitle("Tanks - Colour Select");
-    ColourSelectionController ctrl = ColourSelectionController.load();
+    ColorSelectionController ctrl = ColorSelectionController.load();
     Scene scene = new Scene(ctrl.getRoot());
     theStage.setScene(scene);
     theStage.show();

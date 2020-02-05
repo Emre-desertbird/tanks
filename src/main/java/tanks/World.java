@@ -19,7 +19,6 @@ public class World {
   private Set<Entity> toRemove = new HashSet<>();
   private List<Entity> toAdd = new ArrayList<>();
 
-
   public int playercount;
   private boolean playercountSet = false;
   private int deathcount[];
@@ -50,9 +49,9 @@ public class World {
   public void update(double elapsedTime) {
     for (Entity entity : toRemove) {
       if (entity instanceof Tank) {
-        players.remove(entity);
+        players.remove((Tank) entity);
         availableSkins.add(((Tank) entity).getSkin());
-      } else if (entity instanceof Bullet) {
+      } else {
         entities.remove(entity);
       }
     }
@@ -160,4 +159,21 @@ public class World {
       return "0";
     }
   }
+
+  public void addHealthPack(double x, double y) {
+    HealthPack pack = new HealthPack(this);
+    pack.setPosition(x, y);
+    toAdd.add(pack);
+  }
+
+  public void addStar(double x, double y) {
+    Star star = new Star(this);
+    star.setPosition(x, y);
+    double factor = 1000;
+    double vx = (random.nextDouble() - 0.5) * factor;
+    double vy = (random.nextDouble() - 0.5) * factor;
+    star.setVelocity(vx, vy);
+    toAdd.add(star);
+  }
+
 }
