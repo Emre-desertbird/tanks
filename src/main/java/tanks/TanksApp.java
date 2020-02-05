@@ -43,23 +43,6 @@ public class TanksApp extends Application {
 
   @Override
   public void start(Stage theStage) throws Exception {
-    world.setWidth(WIDTH);
-    world.setHeight(HEIGHT);
-    for (Controller ctrl : controllerManager.getControllers()) {
-      addPlayer(ctrl);
-    }
-    controllerManager.addListener(new ControllerAdapter() {
-      @Override
-      public void connected(Controller ctrl) {
-        addPlayer(ctrl);
-      }
-
-      @Override
-      public void disconnected(Controller ctrl) {
-        removePlayer(ctrl);
-      }
-    });
-
     startMenu(theStage);
 
   }
@@ -127,11 +110,15 @@ public class TanksApp extends Application {
 
   private void startGame(Stage theStage) {
     theStage.setTitle("Tanks");
+
     Group group = new Group();
     Rectangle bg = new Rectangle(WIDTH, HEIGHT);
     bg.setFill(Color.BLUE.darker());
     Canvas canvas = new Canvas(WIDTH, HEIGHT);
     group.getChildren().addAll(bg, canvas);
+
+    world.setWidth(WIDTH);
+    world.setHeight(HEIGHT);
 
     BorderPane root = new BorderPane();
     root.setCenter(group);
@@ -179,6 +166,24 @@ public class TanksApp extends Application {
       }
     });
 
+    GraphicsContext gc = canvas.getGraphicsContext2D();
+
+    for (Controller ctrl : controllerManager.getControllers()) {
+      addPlayer(ctrl);
+    }
+    controllerManager.addListener(new ControllerAdapter() {
+      @Override
+      public void connected(Controller ctrl) {
+        addPlayer(ctrl);
+      }
+
+      @Override
+      public void disconnected(Controller ctrl) {
+        removePlayer(ctrl);
+      }
+    });
+
+
     new AnimationTimer() {
       @Override
       public void handle(long currentNanoTime) {
@@ -200,8 +205,6 @@ public class TanksApp extends Application {
         for (Entity entity : world.getEntities()) {
           entity.update(elapsedTime);
         }
-
-        GraphicsContext gc = canvas.getGraphicsContext2D();
 
         Font theFont = Font.font("Helvetica", FontWeight.BOLD, 24);
         gc.setFont(theFont);
