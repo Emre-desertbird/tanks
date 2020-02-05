@@ -43,6 +43,8 @@ public class TanksApp extends Application {
 
   @Override
   public void start(Stage theStage) throws Exception {
+    world.setWidth(WIDTH);
+    world.setHeight(HEIGHT);
     for (Controller ctrl : controllerManager.getControllers()) {
       addPlayer(ctrl);
     }
@@ -130,9 +132,6 @@ public class TanksApp extends Application {
     bg.setFill(Color.BLUE.darker());
     Canvas canvas = new Canvas(WIDTH, HEIGHT);
     group.getChildren().addAll(bg, canvas);
-
-    world.setWidth(WIDTH);
-    world.setHeight(HEIGHT);
 
     BorderPane root = new BorderPane();
     root.setCenter(group);
