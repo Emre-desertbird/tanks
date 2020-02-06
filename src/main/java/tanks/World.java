@@ -20,7 +20,7 @@ public class World {
   private List<Entity> toAdd = new ArrayList<>();
 
   public int playercount;
-  private boolean playercountSet = false;
+  public boolean playercountSet = false;
   private int deathcount[];
 
   private double width;
@@ -197,7 +197,7 @@ public class World {
     return entities.stream().filter(Bullet.class::isInstance).map(Bullet.class::cast).collect(Collectors.toList());
   }
 
-  public void deathcount(int player) {
+  public void setDeathcount(int player) {
     playercount = getPlayers().size() - 1;
     if (playercountSet == false) {
       deathcount = new int[playercount];
@@ -209,33 +209,9 @@ public class World {
     deathcount[player] += 1;
   }
 
-  public String getDeathcountPlI() {
+  public String getDeathcount(int player) {
     try {
-      return Integer.toString(deathcount[0]);
-    } catch (Exception e) {
-      return "0";
-    }
-  }
-
-  public String getDeathcountPlII() {
-    try {
-      return Integer.toString(deathcount[1]);
-    } catch (Exception e) {
-      return "0";
-    }
-  }
-
-  public String getDeathcountPlIII() {
-    try {
-      return Integer.toString(deathcount[2]);
-    } catch (Exception e) {
-      return "0";
-    }
-  }
-
-  public String getDeathcountPlIV() {
-    try {
-      return Integer.toString(deathcount[3]);
+      return Integer.toString(deathcount[player]);
     } catch (Exception e) {
       return "0";
     }
@@ -256,5 +232,7 @@ public class World {
     star.setVelocity(vx, vy);
     toAdd.add(star);
   }
+
+  public void getHitpoints() {}
 
 }

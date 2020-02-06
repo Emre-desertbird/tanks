@@ -14,6 +14,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
@@ -40,16 +41,19 @@ public class TanksApp extends Application {
   AtomicLong lastNanoTime = new AtomicLong(System.nanoTime());
   ArrayList<String> input = new ArrayList<>();
   String typed = null;
+  double[] hp = new double[4];
+
+
 
   @Override
   public void start(Stage theStage) throws Exception {
     startMenu(theStage);
-
   }
 
   private void addPlayer(Controller ctrl) {
     System.out.println("TanksApp.addPlayer() ctrl=" + ctrl);
     world.addTank(ctrl);
+    world.playercountSet = false;
   }
 
   private void removePlayer(Controller ctrl) {
@@ -62,7 +66,6 @@ public class TanksApp extends Application {
   }
 
   private void startMenu(Stage theStage) throws Exception {
-
     theStage.setTitle("Tanks - Menu");
     MenuController ctrl = MenuController.load();
     ctrl.setContext(new Context() {
@@ -77,8 +80,8 @@ public class TanksApp extends Application {
       }
 
       @Override
-      public void options() {
-
+      public void continueGame() {
+        startGame(theStage, world);
       }
 
       @Override
@@ -158,7 +161,7 @@ public class TanksApp extends Application {
     theScene.setOnKeyTyped(new EventHandler<KeyEvent>() {
       @Override
       public void handle(KeyEvent e) {
-        if (e.getCharacter().matches("q")) {
+        if (e.getCharacter().matches("q") || e.getCharacter().matches("")) { //  = esc
           try {
             startMenu(theStage);
           } catch (Exception e1) {
@@ -221,26 +224,52 @@ public class TanksApp extends Application {
           entity.render(gc);
         }
 
+        for (Tank player : world.getPlayers()) {
+          hp[player.getPlayerController(player.getController())] = player.getCracks();
+        }
+
         if (world.getPlayers().size() >= 1) {
-          String deathcountOne = "Player 1 \nDeaths: " + world.getDeathcountPlI();
-          gc.fillText(deathcountOne, 10, 25);
-          gc.strokeText(deathcountOne, 10, 25);
+          String statsPlayerOne = "Player 1 \n\nDeaths: " + world.getDeathcount(0);
+          gc.fillText(statsPlayerOne, 10, 25);
+          gc.strokeText(statsPlayerOne, 10, 25);
+          ProgressBar health = new ProgressBar();
+          group.getChildren().add(health);
+          health.setLayoutX(10);
+          health.setLayoutY(40);
+          health.setProgress(1 - hp[0] / 20);
+
         }
         if (world.getPlayers().size() >= 2) {
-          String deathcountTwo = "Player 2 \nDeaths: " + world.getDeathcountPlII();
-          gc.fillText(deathcountTwo, world.getWidth() - 110, 25);
-          gc.strokeText(deathcountTwo, world.getWidth() - 110, 25);
+          String statsPlayerTwo = "Player 2 \n\nDeaths: " + world.getDeathcount(1);
+          gc.fillText(statsPlayerTwo, world.getWidth() - 110, 25);
+          gc.strokeText(statsPlayerTwo, world.getWidth() - 110, 25);
+          ProgressBar health = new ProgressBar();
+          group.getChildren().add(health);
+          health.setLayoutX(world.getWidth() - 110);
+          health.setLayoutY(40);
+          health.setProgress(1 - hp[1] / 20);
         }
-        if (world.getPlayers().size() >= 3) {
-          String deathcountThree = "Player 3 \nDeaths: " + world.getDeathcountPlIII();
-          gc.fillText(deathcountThree, 10, world.getHeight() - 50);
-          gc.strokeText(deathcountThree, 10, world.getHeight() - 50);
+        if (world.getPlayers().size() >= 2) {
+          String statsPlayerThree = "Player 3 \n\nDeaths: " + world.getDeathcount(2);
+          gc.fillText(statsPlayerThree, 10, world.getHeight() - 70);
+          gc.strokeText(statsPlayerThree, 10, world.getHeight() - 70);
+          ProgressBar health = new ProgressBar();
+          group.getChildren().add(health);
+          health.setLayoutX(10);
+          health.setLayoutY(world.getHeight() - 55);
+          health.setProgress(1 - hp[2] / 20);
         }
-        if (world.getPlayers().size() >= 4) {
-          String deathcountFour = "Player 4 \nDeaths: " + world.getDeathcountPlIV();
-          gc.fillText(deathcountFour, world.getWidth() - 110, world.getHeight() - 50);
-          gc.strokeText(deathcountFour, world.getWidth() - 110, world.getHeight() - 50);
+        if (world.getPlayers().size() >= 2) {
+          String statsPlayerFour = "Player 4 \n\nDeaths: " + world.getDeathcount(3);
+          gc.fillText(statsPlayerFour, world.getWidth() - 110, world.getHeight() - 70);
+          gc.strokeText(statsPlayerFour, world.getWidth() - 110, world.getHeight() - 70);
+          ProgressBar health = new ProgressBar();
+          group.getChildren().add(health);
+          health.setLayoutX(world.getWidth() - 110);
+          health.setLayoutY(world.getHeight() - 55);
+          health.setProgress(1 - hp[3] / 20);
         }
+
       }
     }.start();
     theStage.show();

@@ -172,6 +172,14 @@ public class Tank extends Entity {
     gc.restore();
   }
 
+  public Controller getController() {
+    return controller;
+  }
+
+  public int getCracks() {
+    return cracks;
+  }
+
   public void hurt() {
     rumble(0.6f);
     cracks++;
@@ -181,11 +189,11 @@ public class Tank extends Entity {
       world.addLargeExplosion(getPositionX(), getPositionY(), getVelocityX(), getVelocityY());
       world.addTank(controller);
 
-      world.deathcount(getPlayerController(controller));
+      world.setDeathcount(getPlayerController(controller));
     }
   }
 
-  private Integer getPlayerController(Controller ctrl) {
+  public Integer getPlayerController(Controller ctrl) {
     if (ctrl.toString().contains("instance:0")) {
       return 0;
     }

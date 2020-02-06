@@ -21,7 +21,7 @@ public class MenuController implements Initializable {
   interface Context {
     void start();
 
-    void options() throws IOException;
+    void continueGame();
 
     void exit();
   }
@@ -33,7 +33,7 @@ public class MenuController implements Initializable {
   @FXML
   private Button startButton;
   @FXML
-  private Button optionsButton;
+  private Button continueButton;
   @FXML
   private Button exitButton;
 
@@ -44,19 +44,21 @@ public class MenuController implements Initializable {
   public void initialize(URL location, ResourceBundle resources) {
     startButton.setOnAction(e -> {
       context.start();
+
     });
 
-    optionsButton.setOnAction(e -> {
-      try {
-        context.options();
-      } catch (IOException e1) {
-        e1.printStackTrace();
-      }
+    continueButton.setOnAction(e -> {
+      context.continueGame();
+      // FIXME CoelkusuE 06.02.2020:
     });
 
     exitButton.setOnAction(e -> {
       context.exit();
     });
+  }
+
+  public void setContinueVisible() {
+    continueButton.setVisible(true);
   }
 
 
