@@ -135,6 +135,7 @@ public class TanksApp extends Application {
     });
     Scene theScene = new Scene(root);
     theStage.setScene(theScene);
+    theStage.setMaximized(true);
 
     theScene.setOnKeyPressed(new EventHandler<KeyEvent>() {
       @Override

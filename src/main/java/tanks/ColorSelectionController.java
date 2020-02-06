@@ -78,7 +78,9 @@ public class ColorSelectionController implements Initializable {
   @FXML
   private Button redPlayer4;
 
-  public int selectedColors = 0;
+  private int selectedColors = 0;
+
+  private boolean[] playerColorSelected = new boolean[4];
 
   private ColorSelectContext context;
 
@@ -113,6 +115,7 @@ public class ColorSelectionController implements Initializable {
         buttons[i][color.getColorIndex()].setDisable(true);
       }
     }
+    playerColorSelected[playerIndex] = true;
   }
 
   @Override
@@ -137,114 +140,114 @@ public class ColorSelectionController implements Initializable {
     setButtonColor();
 
     bluePlayer1.setOnAction(e -> {
+      buttonAction1(playerColorSelected[0]);
       setPlayerColor(0, PlayerColor.BLUE);
       bluePlayer1.setStyle(BLUE_BORDER_STYLE);
-      buttonAction1();
       world.setColorPlayer1(0);
     });
 
     bluePlayer2.setOnAction(e -> {
+      buttonAction1(playerColorSelected[1]);
       setPlayerColor(1, PlayerColor.BLUE);
       bluePlayer2.setStyle(BLUE_BORDER_STYLE);
-      buttonAction1();
       world.setColorPlayer2(0);
     });
 
     bluePlayer3.setOnAction(e -> {
+      buttonAction1(playerColorSelected[2]);
       setPlayerColor(2, PlayerColor.BLUE);
       bluePlayer3.setStyle(BLUE_BORDER_STYLE);
-      buttonAction1();
       world.setColorPlayer3(0);
     });
 
     bluePlayer4.setOnAction(e -> {
+      buttonAction1(playerColorSelected[3]);
       setPlayerColor(3, PlayerColor.BLUE);
       bluePlayer4.setStyle(BLUE_BORDER_STYLE);
-      buttonAction1();
       world.setColorPlayer4(0);
     });
 
     greenPlayer1.setOnAction(e -> {
+      buttonAction1(playerColorSelected[0]);
       setPlayerColor(0, PlayerColor.GREEN);
       greenPlayer1.setStyle(GREEN_BORDER_STYLE);
-      buttonAction1();
       world.setColorPlayer1(3);
     });
 
     greenPlayer2.setOnAction(e -> {
+      buttonAction1(playerColorSelected[1]);
       setPlayerColor(1, PlayerColor.GREEN);
       greenPlayer2.setStyle(GREEN_BORDER_STYLE);
-      buttonAction1();
       world.setColorPlayer2(3);
     });
 
     greenPlayer3.setOnAction(e -> {
+      buttonAction1(playerColorSelected[2]);
       setPlayerColor(2, PlayerColor.GREEN);
       greenPlayer3.setStyle(GREEN_BORDER_STYLE);
-      buttonAction1();
       world.setColorPlayer3(3);
     });
 
     greenPlayer4.setOnAction(e -> {
+      buttonAction1(playerColorSelected[3]);
       setPlayerColor(3, PlayerColor.GREEN);
       greenPlayer4.setStyle(GREEN_BORDER_STYLE);
-      buttonAction1();
       world.setColorPlayer4(3);
     });
 
     yellowPlayer1.setOnAction(e -> {
+      buttonAction1(playerColorSelected[0]);
       setPlayerColor(0, PlayerColor.YELLOW);
       yellowPlayer1.setStyle(YELLOW_BORDER_STYLE);
-      buttonAction1();
       world.setColorPlayer1(2);
     });
 
     yellowPlayer2.setOnAction(e -> {
+      buttonAction1(playerColorSelected[1]);
       setPlayerColor(1, PlayerColor.YELLOW);
       yellowPlayer2.setStyle(YELLOW_BORDER_STYLE);
-      buttonAction1();
       world.setColorPlayer2(2);
     });
 
     yellowPlayer3.setOnAction(e -> {
+      buttonAction1(playerColorSelected[2]);
       setPlayerColor(2, PlayerColor.YELLOW);
       yellowPlayer3.setStyle(YELLOW_BORDER_STYLE);
-      buttonAction1();
       world.setColorPlayer3(2);
     });
 
     yellowPlayer4.setOnAction(e -> {
+      buttonAction1(playerColorSelected[3]);
       setPlayerColor(3, PlayerColor.YELLOW);
       yellowPlayer4.setStyle(YELLOW_BORDER_STYLE);
-      buttonAction1();
       world.setColorPlayer4(2);
     });
 
     redPlayer1.setOnAction(e -> {
+      buttonAction1(playerColorSelected[0]);
       setPlayerColor(0, PlayerColor.RED);
       redPlayer1.setStyle(RED_BORDER_STYLE);
-      buttonAction1();
       world.setColorPlayer1(1);
     });
 
     redPlayer2.setOnAction(e -> {
+      buttonAction1(playerColorSelected[1]);
       setPlayerColor(1, PlayerColor.RED);
       redPlayer2.setStyle(RED_BORDER_STYLE);
-      buttonAction1();
       world.setColorPlayer2(1);
     });
 
     redPlayer3.setOnAction(e -> {
+      buttonAction1(playerColorSelected[2]);
       setPlayerColor(2, PlayerColor.RED);
       redPlayer3.setStyle(RED_BORDER_STYLE);
-      buttonAction1();
       world.setColorPlayer3(1);
     });
 
     redPlayer4.setOnAction(e -> {
+      buttonAction1(playerColorSelected[3]);
       setPlayerColor(3, PlayerColor.RED);
       redPlayer4.setStyle(RED_BORDER_STYLE);
-      buttonAction1();
       world.setColorPlayer4(1);
     });
   }
@@ -276,8 +279,10 @@ public class ColorSelectionController implements Initializable {
     void start(World world);
   }
 
-  private void buttonAction1() {
-    selectedColors++;
+  private void buttonAction1(boolean buttonColorSelected) {
+    if (!buttonColorSelected) {
+      selectedColors++;
+    }
     if (selectedColors == 4) {
       context.start(world);
     }

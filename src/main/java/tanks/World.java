@@ -31,19 +31,12 @@ public class World {
   public int colorPlayer3;
   public int colorPlayer4;
 
-  public World() {
-    System.out.println("new World");
-  }
-
   public int getColorPlayer1() {
-    System.out.println(this + " getColorPlayer1: " + colorPlayer1);
     return colorPlayer1;
   }
 
   public void setColorPlayer1(int colorPlayer1) {
-    System.out.println(this + " colorPlayer1=" + colorPlayer1);
     this.colorPlayer1 = colorPlayer1;
-    System.out.println("this.colorPlayer1=" + this.colorPlayer1);
   }
 
   public int getColorPlayer2() {
