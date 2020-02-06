@@ -36,7 +36,7 @@ public class TanksApp extends Application {
 
 
   SDL2ControllerManager controllerManager = new SDL2ControllerManager();
-  World world = new World();
+  World world;
   AtomicLong lastNanoTime = new AtomicLong(System.nanoTime());
   ArrayList<String> input = new ArrayList<>();
   String typed = null;
@@ -102,14 +102,15 @@ public class TanksApp extends Application {
 
     ctrl.setContext(new ColorSelectContext() {
       @Override
-      public void start() {
-        startGame(theStage);
+      public void start(World world) {
+        startGame(theStage, world);
       }
     });
   }
 
-  private void startGame(Stage theStage) {
+  private void startGame(Stage theStage, World world) {
     theStage.setTitle("Tanks");
+    this.world = world;
 
     Group group = new Group();
     Rectangle bg = new Rectangle(WIDTH, HEIGHT);

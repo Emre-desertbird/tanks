@@ -12,7 +12,7 @@ import com.badlogic.gdx.controllers.Controller;
 
 public class World {
   private Random random = new Random();
-  private Set<PlayerSkin> availableSkins = EnumSet.allOf(PlayerSkin.class);
+  private EnumSet<PlayerSkin> availableSkins = EnumSet.allOf(PlayerSkin.class);
   private List<Tank> players = new ArrayList<>();
   private List<Entity> entities = new ArrayList<>();
 
@@ -31,12 +31,19 @@ public class World {
   public int colorPlayer3;
   public int colorPlayer4;
 
+  public World() {
+    System.out.println("new World");
+  }
+
   public int getColorPlayer1() {
+    System.out.println(this + " getColorPlayer1: " + colorPlayer1);
     return colorPlayer1;
   }
 
   public void setColorPlayer1(int colorPlayer1) {
+    System.out.println(this + " colorPlayer1=" + colorPlayer1);
     this.colorPlayer1 = colorPlayer1;
+    System.out.println("this.colorPlayer1=" + this.colorPlayer1);
   }
 
   public int getColorPlayer2() {
@@ -124,13 +131,26 @@ public class World {
     if (size == 0) {
       return null;
     }
-    PlayerSkin result = availableSkins.toArray(new PlayerSkin[size])[setPlayerControllerColor(ctrl)];
-    availableSkins.remove(result);
-    return result;
+    Integer colorIndex = setPlayerControllerColor(ctrl);
+    if (colorIndex == null) {
+      return null;
+    }
+    switch (colorIndex.intValue()) {
+      case 0:
+        return PlayerSkin.BLUE;
+      case 1:
+        return PlayerSkin.RED;
+      case 2:
+        return PlayerSkin.YELLOW;
+      case 3:
+        return PlayerSkin.GREEN;
+      default:
+        throw new IllegalStateException();
+    }
   }
 
   private Integer setPlayerControllerColor(Controller ctrl) {
-    int controller = getPlayerController(ctrl);
+    Integer controller = getPlayerController(ctrl);
     if (controller == 0) {
       return getColorPlayer1();
     } else if (controller == 1) {

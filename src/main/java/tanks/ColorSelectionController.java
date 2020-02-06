@@ -13,6 +13,19 @@ import javafx.scene.control.Label;
 public class ColorSelectionController implements Initializable {
 
 
+  private static final String RED_STYLE = "-fx-background-color: #ff0000";
+  private static final String YELLOW_STYLE = "-fx-background-color: #daa520";
+  private static final String GREEN_STYLE = "-fx-background-color: #008000";
+  private static final String BLUE_STYLE = "-fx-background-color: #0000cd";
+  private static final String RED_BORDER_STYLE =
+      "-fx-background-color: #ff0000; -fx-border-color: black; -fx-border-width: 6px";
+  private static final String YELLOW_BORDER_STYLE =
+      "-fx-background-color: #daa520; -fx-border-color: black; -fx-border-width: 6px";
+  private static final String GREEN_BORDER_STYLE =
+      "-fx-background-color: #008000; -fx-border-color: black; -fx-border-width: 6px";
+  private static final String BLUE_BORDER_STYLE =
+      "-fx-background-color: #0000cd; -fx-border-color: black; -fx-border-width: 6px";
+
   public static ColorSelectionController load() throws IOException {
     FXMLLoader loader = new FXMLLoader();
     loader.setLocation(ColorSelectionController.class.getResource("colorSelection.fxml"));
@@ -71,233 +84,202 @@ public class ColorSelectionController implements Initializable {
 
   World world = new World();
 
+  private enum PlayerColor {
+    BLUE(0), RED(1), YELLOW(2), GREEN(3);
+
+    private final int colorIndex;
+
+    PlayerColor(int colorIndex) {
+      this.colorIndex = colorIndex;
+    }
+
+    public int getColorIndex() {
+      return colorIndex;
+    }
+  }
+
+  private PlayerColor[] playerColor = new PlayerColor[4];
+  private Button[][] buttons = new Button[4][4];
+
+  private void setPlayerColor(int playerIndex, PlayerColor color) {
+    playerColor[playerIndex] = color;
+    for (int i = 0; i < 4; ++i) {
+      if (i != color.getColorIndex()) {
+        buttons[playerIndex][i].setDisable(true);
+      }
+    }
+    for (int i = 0; i < 4; ++i) {
+      if (i != playerIndex) {
+        buttons[i][color.getColorIndex()].setDisable(true);
+      }
+    }
+  }
+
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+    buttons[0][0] = bluePlayer1;
+    buttons[0][1] = redPlayer1;
+    buttons[0][2] = yellowPlayer1;
+    buttons[0][3] = greenPlayer1;
+    buttons[1][0] = bluePlayer2;
+    buttons[1][1] = redPlayer2;
+    buttons[1][2] = yellowPlayer2;
+    buttons[1][3] = greenPlayer2;
+    buttons[2][0] = bluePlayer3;
+    buttons[2][1] = redPlayer3;
+    buttons[2][2] = yellowPlayer3;
+    buttons[2][3] = greenPlayer3;
+    buttons[3][0] = bluePlayer4;
+    buttons[3][1] = redPlayer4;
+    buttons[3][2] = yellowPlayer4;
+    buttons[3][3] = greenPlayer4;
+
     setButtonColor();
 
     bluePlayer1.setOnAction(e -> {
-      greenPlayer1.setDisable(true);
-      yellowPlayer1.setDisable(true);
-      redPlayer1.setDisable(true);
-      bluePlayer2.setDisable(true);
-      bluePlayer3.setDisable(true);
-      bluePlayer4.setDisable(true);
-      bluePlayer1.setStyle("-fx-background-color: #0000cd; -fx-border-color: black; -fx-border-width: 6px");
+      setPlayerColor(0, PlayerColor.BLUE);
+      bluePlayer1.setStyle(BLUE_BORDER_STYLE);
       buttonAction1();
       world.setColorPlayer1(0);
     });
 
     bluePlayer2.setOnAction(e -> {
-      greenPlayer2.setDisable(true);
-      yellowPlayer2.setDisable(true);
-      redPlayer2.setDisable(true);
-      bluePlayer1.setDisable(true);
-      bluePlayer3.setDisable(true);
-      bluePlayer4.setDisable(true);
-      bluePlayer2.setStyle("-fx-background-color: #0000cd; -fx-border-color: black; -fx-border-width: 6px");
+      setPlayerColor(1, PlayerColor.BLUE);
+      bluePlayer2.setStyle(BLUE_BORDER_STYLE);
       buttonAction1();
       world.setColorPlayer2(0);
     });
 
     bluePlayer3.setOnAction(e -> {
-      greenPlayer3.setDisable(true);
-      yellowPlayer3.setDisable(true);
-      redPlayer3.setDisable(true);
-      bluePlayer1.setDisable(true);
-      bluePlayer2.setDisable(true);
-      bluePlayer4.setDisable(true);
-      bluePlayer3.setStyle("-fx-background-color: #0000cd; -fx-border-color: black; -fx-border-width: 6px");
+      setPlayerColor(2, PlayerColor.BLUE);
+      bluePlayer3.setStyle(BLUE_BORDER_STYLE);
       buttonAction1();
       world.setColorPlayer3(0);
     });
 
     bluePlayer4.setOnAction(e -> {
-      greenPlayer4.setDisable(true);
-      yellowPlayer4.setDisable(true);
-      redPlayer4.setDisable(true);
-      bluePlayer1.setDisable(true);
-      bluePlayer2.setDisable(true);
-      bluePlayer3.setDisable(true);
-      bluePlayer4.setStyle("-fx-background-color: #0000cd; -fx-border-color: black; -fx-border-width: 6px");
+      setPlayerColor(3, PlayerColor.BLUE);
+      bluePlayer4.setStyle(BLUE_BORDER_STYLE);
       buttonAction1();
       world.setColorPlayer4(0);
     });
 
     greenPlayer1.setOnAction(e -> {
-      bluePlayer1.setDisable(true);
-      yellowPlayer1.setDisable(true);
-      redPlayer1.setDisable(true);
-      greenPlayer2.setDisable(true);
-      greenPlayer3.setDisable(true);
-      greenPlayer4.setDisable(true);
-      greenPlayer1.setStyle("-fx-background-color: #008000; -fx-border-color: black; -fx-border-width: 6px");
+      setPlayerColor(0, PlayerColor.GREEN);
+      greenPlayer1.setStyle(GREEN_BORDER_STYLE);
       buttonAction1();
       world.setColorPlayer1(3);
     });
 
     greenPlayer2.setOnAction(e -> {
-      bluePlayer2.setDisable(true);
-      yellowPlayer2.setDisable(true);
-      redPlayer2.setDisable(true);
-      greenPlayer1.setDisable(true);
-      greenPlayer3.setDisable(true);
-      greenPlayer4.setDisable(true);
-      greenPlayer2.setStyle("-fx-background-color: #008000; -fx-border-color: black; -fx-border-width: 6px");
+      setPlayerColor(1, PlayerColor.GREEN);
+      greenPlayer2.setStyle(GREEN_BORDER_STYLE);
       buttonAction1();
       world.setColorPlayer2(3);
     });
 
     greenPlayer3.setOnAction(e -> {
-      bluePlayer3.setDisable(true);
-      yellowPlayer3.setDisable(true);
-      redPlayer3.setDisable(true);
-      greenPlayer1.setDisable(true);
-      greenPlayer2.setDisable(true);
-      greenPlayer4.setDisable(true);
-      greenPlayer3.setStyle("-fx-background-color: #008000; -fx-border-color: black; -fx-border-width: 6px");
+      setPlayerColor(2, PlayerColor.GREEN);
+      greenPlayer3.setStyle(GREEN_BORDER_STYLE);
       buttonAction1();
       world.setColorPlayer3(3);
     });
 
     greenPlayer4.setOnAction(e -> {
-      bluePlayer4.setDisable(true);
-      yellowPlayer4.setDisable(true);
-      redPlayer4.setDisable(true);
-      greenPlayer1.setDisable(true);
-      greenPlayer2.setDisable(true);
-      greenPlayer3.setDisable(true);
-      greenPlayer4.setStyle("-fx-background-color: #008000; -fx-border-color: black; -fx-border-width: 6px");
+      setPlayerColor(3, PlayerColor.GREEN);
+      greenPlayer4.setStyle(GREEN_BORDER_STYLE);
       buttonAction1();
       world.setColorPlayer4(3);
     });
 
     yellowPlayer1.setOnAction(e -> {
-      bluePlayer1.setDisable(true);
-      greenPlayer1.setDisable(true);
-      redPlayer1.setDisable(true);
-      yellowPlayer2.setDisable(true);
-      yellowPlayer3.setDisable(true);
-      yellowPlayer4.setDisable(true);
-      yellowPlayer1.setStyle("-fx-background-color: #daa520; -fx-border-color: black; -fx-border-width: 6px");
+      setPlayerColor(0, PlayerColor.YELLOW);
+      yellowPlayer1.setStyle(YELLOW_BORDER_STYLE);
       buttonAction1();
       world.setColorPlayer1(2);
     });
 
     yellowPlayer2.setOnAction(e -> {
-      bluePlayer2.setDisable(true);
-      greenPlayer2.setDisable(true);
-      redPlayer2.setDisable(true);
-      yellowPlayer1.setDisable(true);
-      yellowPlayer3.setDisable(true);
-      yellowPlayer4.setDisable(true);
-      yellowPlayer2.setStyle("-fx-background-color: #daa520; -fx-border-color: black; -fx-border-width: 6px");
+      setPlayerColor(1, PlayerColor.YELLOW);
+      yellowPlayer2.setStyle(YELLOW_BORDER_STYLE);
       buttonAction1();
       world.setColorPlayer2(2);
     });
 
     yellowPlayer3.setOnAction(e -> {
-      bluePlayer3.setDisable(true);
-      greenPlayer3.setDisable(true);
-      redPlayer3.setDisable(true);
-      yellowPlayer1.setDisable(true);
-      yellowPlayer2.setDisable(true);
-      yellowPlayer4.setDisable(true);
-      yellowPlayer3.setStyle("-fx-background-color: #daa520; -fx-border-color: black; -fx-border-width: 6px");
+      setPlayerColor(2, PlayerColor.YELLOW);
+      yellowPlayer3.setStyle(YELLOW_BORDER_STYLE);
       buttonAction1();
       world.setColorPlayer3(2);
     });
 
     yellowPlayer4.setOnAction(e -> {
-      bluePlayer4.setDisable(true);
-      greenPlayer4.setDisable(true);
-      redPlayer4.setDisable(true);
-      yellowPlayer1.setDisable(true);
-      yellowPlayer2.setDisable(true);
-      yellowPlayer3.setDisable(true);
-      yellowPlayer4.setStyle("-fx-background-color: #daa520; -fx-border-color: black; -fx-border-width: 6px");
+      setPlayerColor(3, PlayerColor.YELLOW);
+      yellowPlayer4.setStyle(YELLOW_BORDER_STYLE);
       buttonAction1();
       world.setColorPlayer4(2);
     });
 
     redPlayer1.setOnAction(e -> {
-      bluePlayer1.setDisable(true);
-      greenPlayer1.setDisable(true);
-      yellowPlayer1.setDisable(true);
-      redPlayer2.setDisable(true);
-      redPlayer3.setDisable(true);
-      redPlayer4.setDisable(true);
-      redPlayer1.setStyle("-fx-background-color: #ff0000; -fx-border-color: black; -fx-border-width: 6px");
+      setPlayerColor(0, PlayerColor.RED);
+      redPlayer1.setStyle(RED_BORDER_STYLE);
       buttonAction1();
       world.setColorPlayer1(1);
     });
 
     redPlayer2.setOnAction(e -> {
-      bluePlayer2.setDisable(true);
-      greenPlayer2.setDisable(true);
-      yellowPlayer2.setDisable(true);
-      redPlayer1.setDisable(true);
-      redPlayer3.setDisable(true);
-      redPlayer4.setDisable(true);
-      redPlayer2.setStyle("-fx-background-color: #ff0000; -fx-border-color: black; -fx-border-width: 6px");
+      setPlayerColor(1, PlayerColor.RED);
+      redPlayer2.setStyle(RED_BORDER_STYLE);
       buttonAction1();
       world.setColorPlayer2(1);
     });
 
     redPlayer3.setOnAction(e -> {
-      bluePlayer3.setDisable(true);
-      greenPlayer3.setDisable(true);
-      yellowPlayer3.setDisable(true);
-      redPlayer1.setDisable(true);
-      redPlayer2.setDisable(true);
-      redPlayer4.setDisable(true);
-      redPlayer3.setStyle("-fx-background-color: #ff0000; -fx-border-color: black; -fx-border-width: 6px");
+      setPlayerColor(2, PlayerColor.RED);
+      redPlayer3.setStyle(RED_BORDER_STYLE);
       buttonAction1();
       world.setColorPlayer3(1);
     });
 
     redPlayer4.setOnAction(e -> {
-      bluePlayer4.setDisable(true);
-      greenPlayer4.setDisable(true);
-      yellowPlayer4.setDisable(true);
-      redPlayer1.setDisable(true);
-      redPlayer2.setDisable(true);
-      redPlayer3.setDisable(true);
-      redPlayer4.setStyle("-fx-background-color: #ff0000; -fx-border-color: black; -fx-border-width: 6px");
+      setPlayerColor(3, PlayerColor.RED);
+      redPlayer4.setStyle(RED_BORDER_STYLE);
       buttonAction1();
       world.setColorPlayer4(1);
     });
   }
 
+
   private void setButtonColor() {
-    bluePlayer1.setStyle("-fx-background-color: #0000cd");
-    greenPlayer1.setStyle("-fx-background-color: #008000");
-    yellowPlayer1.setStyle("-fx-background-color: #daa520");
-    redPlayer1.setStyle("-fx-background-color: #ff0000");
+    bluePlayer1.setStyle(BLUE_STYLE);
+    greenPlayer1.setStyle(GREEN_STYLE);
+    yellowPlayer1.setStyle(YELLOW_STYLE);
+    redPlayer1.setStyle(RED_STYLE);
 
-    bluePlayer2.setStyle("-fx-background-color: #0000cd");
-    greenPlayer2.setStyle("-fx-background-color: #008000");
-    yellowPlayer2.setStyle("-fx-background-color: #daa520");
-    redPlayer2.setStyle("-fx-background-color: #ff0000");
+    bluePlayer2.setStyle(BLUE_STYLE);
+    greenPlayer2.setStyle(GREEN_STYLE);
+    yellowPlayer2.setStyle(YELLOW_STYLE);
+    redPlayer2.setStyle(RED_STYLE);
 
-    bluePlayer3.setStyle("-fx-background-color: #0000cd");
-    greenPlayer3.setStyle("-fx-background-color: #008000");
-    yellowPlayer3.setStyle("-fx-background-color: #daa520");
-    redPlayer3.setStyle("-fx-background-color: #ff0000");
+    bluePlayer3.setStyle(BLUE_STYLE);
+    greenPlayer3.setStyle(GREEN_STYLE);
+    yellowPlayer3.setStyle(YELLOW_STYLE);
+    redPlayer3.setStyle(RED_STYLE);
 
-    bluePlayer4.setStyle("-fx-background-color: #0000cd");
-    greenPlayer4.setStyle("-fx-background-color: #008000");
-    yellowPlayer4.setStyle("-fx-background-color: #daa520");
-    redPlayer4.setStyle("-fx-background-color: #ff0000");
+    bluePlayer4.setStyle(BLUE_STYLE);
+    greenPlayer4.setStyle(GREEN_STYLE);
+    yellowPlayer4.setStyle(YELLOW_STYLE);
+    redPlayer4.setStyle(RED_STYLE);
   }
 
   interface ColorSelectContext {
-    void start();
+    void start(World world);
   }
 
   private void buttonAction1() {
     selectedColors++;
     if (selectedColors == 4) {
-      context.start();
+      context.start(world);
     }
   }
 
