@@ -249,7 +249,7 @@ public class TanksApp extends Application {
           health.setLayoutY(40);
           health.setProgress(1 - hp[1] / 20);
         }
-        if (world.getPlayers().size() >= 2) {
+        if (world.getPlayers().size() >= 3) {
           String statsPlayerThree = "Player 3 \n\nDeaths: " + world.getDeathcount(2);
           gc.fillText(statsPlayerThree, 10, world.getHeight() - 70);
           gc.strokeText(statsPlayerThree, 10, world.getHeight() - 70);
@@ -259,7 +259,7 @@ public class TanksApp extends Application {
           health.setLayoutY(world.getHeight() - 55);
           health.setProgress(1 - hp[2] / 20);
         }
-        if (world.getPlayers().size() >= 2) {
+        if (world.getPlayers().size() >= 4) {
           String statsPlayerFour = "Player 4 \n\nDeaths: " + world.getDeathcount(3);
           gc.fillText(statsPlayerFour, world.getWidth() - 110, world.getHeight() - 70);
           gc.strokeText(statsPlayerFour, world.getWidth() - 110, world.getHeight() - 70);
