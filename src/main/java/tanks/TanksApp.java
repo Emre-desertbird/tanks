@@ -284,19 +284,16 @@ public class TanksApp extends Application {
       group.getChildren().add(health1);
       health1.setLayoutX(world.getWidth() - 110);
       health1.setLayoutY(40);
-      health1.setProgress(1 - hp[1] / 20);
     }
     if (world.getPlayers().size() >= 3) {
       group.getChildren().add(health2);
       health2.setLayoutX(10);
       health2.setLayoutY(world.getHeight() - 55);
-      health2.setProgress(1 - hp[2] / 20);
     }
     if (world.getPlayers().size() >= 4) {
       group.getChildren().add(health3);
       health3.setLayoutX(world.getWidth() - 110);
       health3.setLayoutY(world.getHeight() - 55);
-      health3.setProgress(1 - hp[3] / 20);
     }
   }
 }
