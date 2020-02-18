@@ -12,7 +12,7 @@
          <children>
             <Label fx:id="captionLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="75.0" prefWidth="200.0" styleClass="caption" text="Tanks" textAlignment="CENTER" />
             <Button fx:id="startButton" mnemonicParsing="false" prefHeight="35.0" prefWidth="137.0" styleClass="button" text="Start Game" />
-            <Button fx:id="continueButton" mnemonicParsing="false" prefHeight="35.0" prefWidth="137.0" styleClass="button" text="Continue" visible="false" />
+            <Button fx:id="continueButton" disable="true" mnemonicParsing="false" prefHeight="35.0" prefWidth="137.0" styleClass="button" text="Continue" />
             <Button fx:id="exitButton" mnemonicParsing="false" prefHeight="35.0" prefWidth="137.0" styleClass="button" text="Exit" />
          </children>
          <BorderPane.margin>

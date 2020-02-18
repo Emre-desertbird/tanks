@@ -44,7 +44,6 @@ public class MenuController implements Initializable {
   public void initialize(URL location, ResourceBundle resources) {
     startButton.setOnAction(e -> {
       context.start();
-
     });
 
     continueButton.setOnAction(e -> {
@@ -57,8 +56,8 @@ public class MenuController implements Initializable {
     });
   }
 
-  public void setContinueVisible() {
-    continueButton.setVisible(true);
+  public void setContinueEnabled() {
+    continueButton.setDisable(false);
   }
 
 

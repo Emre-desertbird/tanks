@@ -76,8 +76,8 @@ public class TanksApp extends Application {
   private void startMenu(Stage theStage) throws Exception {
     theStage.setTitle("Tanks - Menu");
     MenuController ctrl = MenuController.load();
+    ctrl.setContinueEnabled();
     ctrl.setContext(new Context() {
-
       @Override
       public void start() {
         try {
