@@ -1,0 +1,5 @@
+.health-bar > .track {
+  -fx-control-inner-background: palegreen;
+}
+
+.health-bar    { -fx-accent: orange; -fx-background: forestgreen; }

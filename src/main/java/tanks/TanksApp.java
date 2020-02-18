@@ -14,7 +14,6 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.ProgressBar;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
@@ -43,12 +42,14 @@ public class TanksApp extends Application {
   String typed = null;
   double[] hp = new double[4];
   public boolean setStats = false;
+  boolean pauseMenu = false;
   Group group = new Group();
 
-  ProgressBar health0 = new ProgressBar();
-  ProgressBar health1 = new ProgressBar();
-  ProgressBar health2 = new ProgressBar();
-  ProgressBar health3 = new ProgressBar();
+  HealthBar health0 = new HealthBar("health-bar");
+  HealthBar health1 = new HealthBar("health-bar");
+  HealthBar health2 = new HealthBar("health-bar");
+  HealthBar health3 = new HealthBar("health-bar");
+
 
 
   @Override
@@ -76,7 +77,10 @@ public class TanksApp extends Application {
   private void startMenu(Stage theStage) throws Exception {
     theStage.setTitle("Tanks - Menu");
     MenuController ctrl = MenuController.load();
-    ctrl.setContinueEnabled();
+    if (pauseMenu == true) {
+      theStage.setTitle("Tanks - Menu / Pause");
+      ctrl.setContinueEnabled();
+    }
     ctrl.setContext(new Context() {
       @Override
       public void start() {
@@ -98,6 +102,8 @@ public class TanksApp extends Application {
       }
     });
 
+
+    group.getStylesheets().add(getClass().getResource("healthBar.css").toExternalForm());
     Scene scene = new Scene(ctrl.getRoot());
     theStage.setScene(scene);
     theStage.show();
@@ -170,6 +176,7 @@ public class TanksApp extends Application {
       public void handle(KeyEvent e) {
         if (e.getCharacter().matches("q") || e.getCharacter().matches("")) { //  = esc
           try {
+            pauseMenu = true;
             startMenu(theStage);
           } catch (Exception e1) {
             e1.printStackTrace();
