@@ -50,8 +50,6 @@ public class TanksApp extends Application {
   HealthBar health2 = new HealthBar("health-bar");
   HealthBar health3 = new HealthBar("health-bar");
 
-
-
   @Override
   public void start(Stage theStage) throws Exception {
     startMenu(theStage);
@@ -130,7 +128,7 @@ public class TanksApp extends Application {
     this.world = world;
 
     Rectangle bg = new Rectangle(WIDTH, HEIGHT);
-    bg.setFill(Color.BLUE.darker());
+    bg.setFill(Color.DARKGREY.darker());
     Canvas canvas = new Canvas(WIDTH, HEIGHT);
     group.getChildren().addAll(bg, canvas);
 
@@ -226,7 +224,7 @@ public class TanksApp extends Application {
 
         Font theFont = Font.font("Helvetica", FontWeight.BOLD, 24);
         gc.setFont(theFont);
-        gc.setStroke(Color.DARKGREY);
+        gc.setStroke(Color.CADETBLUE);
         gc.setLineWidth(1);
 
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
@@ -250,6 +248,8 @@ public class TanksApp extends Application {
           String statsPlayerOne = "Player 1 \n\nDeaths: " + world.getDeathcount(0);
           gc.fillText(statsPlayerOne, 10, 25);
           gc.strokeText(statsPlayerOne, 10, 25);
+          health0.setLayoutX(10);
+          health0.setLayoutY(40);
           health0.setProgress(1 - hp[0] / 20);
 
         }
@@ -257,18 +257,24 @@ public class TanksApp extends Application {
           String statsPlayerTwo = "Player 2 \n\nDeaths: " + world.getDeathcount(1);
           gc.fillText(statsPlayerTwo, world.getWidth() - 110, 25);
           gc.strokeText(statsPlayerTwo, world.getWidth() - 110, 25);
+          health1.setLayoutX(world.getWidth() - 110);
+          health1.setLayoutY(40);
           health1.setProgress(1 - hp[1] / 20);
         }
         if (world.getPlayers().size() >= 3) {
           String statsPlayerThree = "Player 3 \n\nDeaths: " + world.getDeathcount(2);
           gc.fillText(statsPlayerThree, 10, world.getHeight() - 70);
           gc.strokeText(statsPlayerThree, 10, world.getHeight() - 70);
+          health2.setLayoutX(10);
+          health2.setLayoutY(world.getHeight() - 55);
           health2.setProgress(1 - hp[2] / 20);
         }
         if (world.getPlayers().size() >= 4) {
           String statsPlayerFour = "Player 4 \n\nDeaths: " + world.getDeathcount(3);
           gc.fillText(statsPlayerFour, world.getWidth() - 110, world.getHeight() - 70);
           gc.strokeText(statsPlayerFour, world.getWidth() - 110, world.getHeight() - 70);
+          health3.setLayoutX(world.getWidth() - 110);
+          health3.setLayoutY(world.getHeight() - 55);
           health3.setProgress(1 - hp[3] / 20);
         }
       }
@@ -277,30 +283,19 @@ public class TanksApp extends Application {
   }
 
   private void setInitialStats() {
-    group.getChildren().remove(health0);
-    group.getChildren().remove(health1);
-    group.getChildren().remove(health2);
-    group.getChildren().remove(health3);
+    group.getChildren().removeAll(health0, health1, health2, health3);
 
     if (world.getPlayers().size() >= 1) {
       group.getChildren().add(health0);
-      health0.setLayoutX(10);
-      health0.setLayoutY(40);
     }
     if (world.getPlayers().size() >= 2) {
       group.getChildren().add(health1);
-      health1.setLayoutX(world.getWidth() - 110);
-      health1.setLayoutY(40);
     }
     if (world.getPlayers().size() >= 3) {
       group.getChildren().add(health2);
-      health2.setLayoutX(10);
-      health2.setLayoutY(world.getHeight() - 55);
     }
     if (world.getPlayers().size() >= 4) {
       group.getChildren().add(health3);
-      health3.setLayoutX(world.getWidth() - 110);
-      health3.setLayoutY(world.getHeight() - 55);
     }
   }
 }

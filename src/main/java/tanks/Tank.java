@@ -34,7 +34,7 @@ public class Tank extends Entity {
     controller.addListener(new ControllerAdapter() {
       @Override
       public boolean buttonDown(Controller controller, int buttonIndex) {
-        // System.out.println("buttonDown() buttonIndex="+buttonIndex);
+        System.out.println("buttonDown() buttonIndex=" + buttonIndex);
         if (buttonIndex == 10) {
           fire = true;
         }
@@ -43,7 +43,7 @@ public class Tank extends Entity {
 
       @Override
       public boolean buttonUp(Controller controller, int buttonIndex) {
-        // System.out.println("buttonDown() buttonIndex="+buttonIndex);
+        // System.out.println("buttonDown() buttonIndex=" + buttonIndex);
         if (buttonIndex == 10) {
           fire = false;
         }
@@ -143,7 +143,7 @@ public class Tank extends Entity {
     }
 
     if (fire && fireCooldown <= 0) {
-      fireCooldown = 0.15;
+      fireCooldown = 0.1;
       double rot = body.getRotation() + turret.getRotation();
       double vx = Math.cos(Math.toRadians(rot));
       double vy = Math.sin(Math.toRadians(rot));

@@ -48,7 +48,6 @@ public class MenuController implements Initializable {
 
     continueButton.setOnAction(e -> {
       context.continueGame();
-      // FIXME CoelkusuE 06.02.2020:
     });
 
     exitButton.setOnAction(e -> {
