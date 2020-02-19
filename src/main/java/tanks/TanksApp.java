@@ -255,9 +255,9 @@ public class TanksApp extends Application {
         }
         if (world.getPlayers().size() >= 2) {
           String statsPlayerTwo = "Player 2 \n\nDeaths: " + world.getDeathcount(1);
-          gc.fillText(statsPlayerTwo, world.getWidth() - 110, 25);
-          gc.strokeText(statsPlayerTwo, world.getWidth() - 110, 25);
-          health1.setLayoutX(world.getWidth() - 110);
+          gc.fillText(statsPlayerTwo, world.getWidth() - 120, 25);
+          gc.strokeText(statsPlayerTwo, world.getWidth() - 120, 25);
+          health1.setLayoutX(world.getWidth() - 120);
           health1.setLayoutY(40);
           health1.setProgress(1 - hp[1] / 20);
         }
@@ -271,9 +271,9 @@ public class TanksApp extends Application {
         }
         if (world.getPlayers().size() >= 4) {
           String statsPlayerFour = "Player 4 \n\nDeaths: " + world.getDeathcount(3);
-          gc.fillText(statsPlayerFour, world.getWidth() - 110, world.getHeight() - 70);
-          gc.strokeText(statsPlayerFour, world.getWidth() - 110, world.getHeight() - 70);
-          health3.setLayoutX(world.getWidth() - 110);
+          gc.fillText(statsPlayerFour, world.getWidth() - 120, world.getHeight() - 70);
+          gc.strokeText(statsPlayerFour, world.getWidth() - 120, world.getHeight() - 70);
+          health3.setLayoutX(world.getWidth() - 120);
           health3.setLayoutY(world.getHeight() - 55);
           health3.setProgress(1 - hp[3] / 20);
         }

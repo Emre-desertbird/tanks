@@ -6,6 +6,7 @@ public class Bullet extends Entity {
 
   private final World world;
   private final Sprite sprite;
+  private String origin;
 
   public Bullet(World world) {
     this.world = world;
@@ -34,6 +35,7 @@ public class Bullet extends Entity {
         if (tank.collides(this)) {
           world.addSmallExplosion(getPositionX(), getPositionY(), tank.getVelocityX(),
               tank.getVelocityY());
+          System.out.println(this);
           world.remove(this);
           tank.hurt();
           return;
