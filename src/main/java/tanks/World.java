@@ -245,6 +245,18 @@ public class World {
     toAdd.add(pack);
   }
 
+  public void addSpeedUp(double x, double y) {
+    SpeedUp speedUp = new SpeedUp(this);
+    speedUp.setPosition(x, y);
+    toAdd.add(speedUp);
+  }
+
+  public void addBulletSpeedUp(double x, double y) {
+    BulletSpeedUp bulletSpeedUp = new BulletSpeedUp(this);
+    bulletSpeedUp.setPosition(x, y);
+    toAdd.add(bulletSpeedUp);
+  }
+
   public void addStar(double x, double y) {
     Star star = new Star(this);
     star.setPosition(x, y);

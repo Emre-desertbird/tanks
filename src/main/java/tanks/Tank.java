@@ -22,6 +22,9 @@ public class Tank extends Entity {
   private ImageAnimation anim = new ImageAnimation();
   private boolean engineActive = false;
 
+  double speedFactor = 250;
+  double bulletSpeedFactor = 550;
+
   private boolean fire = false;
   private double fireCooldown = 0;
 
@@ -99,8 +102,7 @@ public class Tank extends Entity {
     float yAxis = controller.getAxis(1);
 
     if (Math.sqrt(xAxis * xAxis + yAxis * yAxis) > 0.2) {
-      double factor = 250;
-      setVelocity(xAxis * factor, yAxis * factor);
+      setVelocity(xAxis * speedFactor, yAxis * speedFactor);
       double rot = Math.toDegrees(Math.atan2(yAxis, xAxis));
       body.setRotation(rot);
     } else {
@@ -147,7 +149,6 @@ public class Tank extends Entity {
       double rot = body.getRotation() + turret.getRotation();
       double vx = Math.cos(Math.toRadians(rot));
       double vy = Math.sin(Math.toRadians(rot));
-      double factor = 550;
 
       Affine trans = new Affine();
       trans.appendTranslation(getPositionX(), getPositionY());
@@ -157,7 +158,7 @@ public class Tank extends Entity {
       Point2D ptSrc = new Point2D(50, 0);
       Point2D ptDst = trans.transform(ptSrc);
 
-      world.addBullet(this, ptDst.getX(), ptDst.getY(), vx * factor, vy * factor);
+      world.addBullet(this, ptDst.getX(), ptDst.getY(), vx * bulletSpeedFactor, vy * bulletSpeedFactor);
     }
 
     bodyCracks.setEnabled(cracks > 10);
@@ -220,6 +221,20 @@ public class Tank extends Entity {
     cracks = 0;
     for (int i = 0; i < 10; ++i) {
       world.addStar(healthPack.getPositionX(), healthPack.getPositionY());
+    }
+  }
+
+  public void addSpeed(SpeedUp speedUp) {
+    speedFactor += 50;
+    for (int i = 0; i < 10; ++i) {
+      world.addStar(speedUp.getPositionX(), speedUp.getPositionY());
+    }
+  }
+
+  public void addBulletSpeed(BulletSpeedUp bulletSpeedUp) {
+    bulletSpeedFactor += 100;
+    for (int i = 0; i < 10; ++i) {
+      world.addStar(bulletSpeedUp.getPositionX(), bulletSpeedUp.getPositionY());
     }
   }
 

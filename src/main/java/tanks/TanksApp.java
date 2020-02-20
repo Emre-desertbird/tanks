@@ -2,6 +2,7 @@ package tanks;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 import org.libsdl.SDL;
 import org.libsdl.SDL_Error;
@@ -270,6 +271,26 @@ public class TanksApp extends Application {
           setInitialStats();
           setStats = true;
         }
+
+        Random random = new Random();
+        int randomNumber = random.ints(0, 4999).findFirst().getAsInt();
+        if (randomNumber <= 2) {
+          int x = random.ints(0, (int) world.getWidth()).findFirst().getAsInt();
+          int y = random.ints(0, (int) world.getHeight()).findFirst().getAsInt();
+          switch (randomNumber) {
+            case 0:
+              world.addSpeedUp(x, y);
+              break;
+            case 1:
+              world.addBulletSpeedUp(x, y);
+              break;
+            case 2:
+              world.addHealthPack(x, y);
+              break;
+          }
+        }
+
+
 
         if (world.getPlayers().size() >= 1) {
           String statsPlayerOne =
