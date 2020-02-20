@@ -14,6 +14,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
@@ -48,10 +49,17 @@ public class TanksApp extends Application {
   boolean continuedGame = false;
   Group group = new Group();
 
-  HealthBar health0 = new HealthBar("health-bar");
-  HealthBar health1 = new HealthBar("health-bar");
-  HealthBar health2 = new HealthBar("health-bar");
-  HealthBar health3 = new HealthBar("health-bar");
+  ProgressBar health0 = new ProgressBar();
+  ProgressBar health1 = new ProgressBar();
+  ProgressBar health2 = new ProgressBar();
+  ProgressBar health3 = new ProgressBar();
+
+  private static final String RED_BAR = "red-bar";
+  private static final String YELLOW_BAR = "yellow-bar";
+  private static final String ORANGE_BAR = "orange-bar";
+  private static final String GREEN_BAR = "green-bar";
+  private static final String[] barColorStyleClasses = {RED_BAR, ORANGE_BAR, YELLOW_BAR, GREEN_BAR};
+
 
   @Override
   public void start(Stage theStage) throws Exception {
@@ -271,7 +279,7 @@ public class TanksApp extends Application {
           health0.setLayoutX(10);
           health0.setLayoutY(40);
           health0.setProgress(1 - hp[0] / 20);
-
+          setHealthbarStyle(health0);
         }
         if (world.getPlayers().size() >= 2) {
           String statsPlayerTwo =
@@ -281,6 +289,7 @@ public class TanksApp extends Application {
           health1.setLayoutX(world.getWidth() - 120);
           health1.setLayoutY(40);
           health1.setProgress(1 - hp[1] / 20);
+          setHealthbarStyle(health1);
         }
         if (world.getPlayers().size() >= 3) {
 
@@ -291,6 +300,7 @@ public class TanksApp extends Application {
           health2.setLayoutX(10);
           health2.setLayoutY(world.getHeight() - 95);
           health2.setProgress(1 - hp[2] / 20);
+          setHealthbarStyle(health2);
         }
         if (world.getPlayers().size() >= 4) {
           String statsPlayerFour =
@@ -300,9 +310,23 @@ public class TanksApp extends Application {
           health3.setLayoutX(world.getWidth() - 120);
           health3.setLayoutY(world.getHeight() - 95);
           health3.setProgress(1 - hp[3] / 20);
+          setHealthbarStyle(health3);
         }
       }
     };
+  }
+
+  private void setHealthbarStyle(ProgressBar health) {
+    health.getStyleClass().removeAll(barColorStyleClasses);
+    if (health.getProgress() > 0.7) {
+      health.getStyleClass().add(GREEN_BAR);
+    } else if (health.getProgress() > 0.5) {
+      health.getStyleClass().add(YELLOW_BAR);
+    } else if (health.getProgress() > 0.3) {
+      health.getStyleClass().add(ORANGE_BAR);
+    } else if (health.getProgress() > 0) {
+      health.getStyleClass().add(RED_BAR);
+    }
   }
 
   private void setInitialStats() {

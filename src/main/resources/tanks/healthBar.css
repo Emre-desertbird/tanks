@@ -1,5 +1,17 @@
-.health-bar > .track {
+.green-bar > .track {
   -fx-control-inner-background: palegreen;
 }
+.yellow-bar > .track {
+  -fx-control-inner-background: palegreen;
+}
+.orange-bar > .track {
+  -fx-control-inner-background: palegreen;
+}
+.red-bar > .track {
+  -fx-control-inner-background: lightcoral;
+}
 
-.health-bar    { -fx-accent: orange; -fx-background: forestgreen; }
+.green-bar  { -fx-accent: green;  -fx-background: forestgreen; }
+.yellow-bar { -fx-accent: gold; -fx-background: forestgreen; }
+.orange-bar { -fx-accent: darkorange; -fx-background: forestgreen; }
+.red-bar    { -fx-accent: red;    -fx-background: forestgreen; }
