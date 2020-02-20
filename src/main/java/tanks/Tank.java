@@ -34,7 +34,7 @@ public class Tank extends Entity {
     controller.addListener(new ControllerAdapter() {
       @Override
       public boolean buttonDown(Controller controller, int buttonIndex) {
-        //System.out.println("buttonDown() buttonIndex=" + buttonIndex);
+        // System.out.println("buttonDown() buttonIndex=" + buttonIndex);
         if (buttonIndex == 10) {
           fire = true;
         }
@@ -157,7 +157,7 @@ public class Tank extends Entity {
       Point2D ptSrc = new Point2D(50, 0);
       Point2D ptDst = trans.transform(ptSrc);
 
-      world.addBullet(ptDst.getX(), ptDst.getY(), vx * factor, vy * factor);
+      world.addBullet(this, ptDst.getX(), ptDst.getY(), vx * factor, vy * factor);
     }
 
     bodyCracks.setEnabled(cracks > 10);
@@ -180,7 +180,7 @@ public class Tank extends Entity {
     return cracks;
   }
 
-  public void hurt() {
+  public void hurt(Bullet bullet) {
     rumble(0.6f);
     cracks++;
     if (cracks == 20) {
@@ -188,7 +188,8 @@ public class Tank extends Entity {
       world.remove(this);
       world.addLargeExplosion(getPositionX(), getPositionY(), getVelocityX(), getVelocityY());
       world.addTank(controller);
-
+      world.setupKillcountAndDeathcount();
+      world.setKillcount(bullet.getOrigin());
       world.setDeathcount(getPlayerController(controller));
     }
   }

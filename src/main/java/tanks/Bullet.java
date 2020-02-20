@@ -6,7 +6,7 @@ public class Bullet extends Entity {
 
   private final World world;
   private final Sprite sprite;
-  private String origin;
+  private Integer origin;
 
   public Bullet(World world) {
     this.world = world;
@@ -33,18 +33,16 @@ public class Bullet extends Entity {
     if (getAge() > 0.05) {
       for (Tank tank : world.getPlayers()) {
         if (tank.collides(this)) {
-          world.addSmallExplosion(getPositionX(), getPositionY(), tank.getVelocityX(),
-              tank.getVelocityY());
-          System.out.println(this);
+          world.addSmallExplosion(getPositionX(), getPositionY(), tank.getVelocityX(), tank.getVelocityY());
           world.remove(this);
-          tank.hurt();
+          tank.hurt(this);
           return;
         }
       }
       for (Bullet bullet : world.getBullets()) {
         if (this != bullet && bullet.collides(this)) {
           world.addSmallExplosion(getPositionX(), getPositionY(), getVelocityX(), getVelocityY());
-          world.remove(this);          
+          world.remove(this);
         }
       }
     }
@@ -58,4 +56,11 @@ public class Bullet extends Entity {
     gc.restore();
   }
 
+  public Integer getOrigin() {
+    return origin;
+  }
+
+  public void setOrigin(Integer origin) {
+    this.origin = origin;
+  }
 }

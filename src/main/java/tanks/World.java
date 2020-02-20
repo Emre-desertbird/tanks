@@ -22,6 +22,7 @@ public class World {
   public int playercount;
   public boolean playercountSet = false;
   private int deathcount[];
+  private int killcount[];
 
   private double width;
   private double height;
@@ -169,12 +170,13 @@ public class World {
     if (ctrl.toString().contains("instance:3")) {
       return 3;
     }
-    
     return null;
   }
 
-  public void addBullet(double positionX, double positionY, double vx, double vy) {
+  public void addBullet(Tank tank, double positionX, double positionY, double vx, double vy) {
+
     Bullet bullet = new Bullet(this);
+    bullet.setOrigin(tank.getPlayerController(tank.getController()));
     bullet.setPosition(positionX, positionY);
     bullet.setVelocity(vx, vy);
     toAdd.add(bullet);
@@ -198,16 +200,33 @@ public class World {
     return entities.stream().filter(Bullet.class::isInstance).map(Bullet.class::cast).collect(Collectors.toList());
   }
 
+  public void setKillcount(int player) {
+    killcount[player] += 1;
+  }
+
   public void setDeathcount(int player) {
+    deathcount[player] += 1;
+  }
+
+  public void setupKillcountAndDeathcount() {
     playercount = getPlayers().size() - 1;
     if (playercountSet == false) {
       deathcount = new int[playercount];
+      killcount = new int[playercount];
       for (int y = 0; y < playercount; y++) {
         deathcount[y] = 0;
+        killcount[y] = 0;
       }
       playercountSet = true;
     }
-    deathcount[player] += 1;
+  }
+
+  public String getKillcount(int player) {
+    try {
+      return Integer.toString(killcount[player]);
+    } catch (Exception e) {
+      return "0";
+    }
   }
 
   public String getDeathcount(int player) {
@@ -217,6 +236,8 @@ public class World {
       return "0";
     }
   }
+
+
 
   public void addHealthPack(double x, double y) {
     HealthPack pack = new HealthPack(this);

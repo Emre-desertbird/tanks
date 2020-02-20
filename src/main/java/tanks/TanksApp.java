@@ -245,7 +245,8 @@ public class TanksApp extends Application {
         }
 
         if (world.getPlayers().size() >= 1) {
-          String statsPlayerOne = "Player 1 \n\nDeaths: " + world.getDeathcount(0);
+          String statsPlayerOne =
+              "Player 1 \n\nKills: " + world.getKillcount(0) + "\nDeaths: " + world.getDeathcount(0);
           gc.fillText(statsPlayerOne, 10, 25);
           gc.strokeText(statsPlayerOne, 10, 25);
           health0.setLayoutX(10);
@@ -254,7 +255,8 @@ public class TanksApp extends Application {
 
         }
         if (world.getPlayers().size() >= 2) {
-          String statsPlayerTwo = "Player 2 \n\nDeaths: " + world.getDeathcount(1);
+          String statsPlayerTwo =
+              "Player 2 \n\nKills :" + world.getKillcount(1) + "\nDeaths: " + world.getDeathcount(1);
           gc.fillText(statsPlayerTwo, world.getWidth() - 120, 25);
           gc.strokeText(statsPlayerTwo, world.getWidth() - 120, 25);
           health1.setLayoutX(world.getWidth() - 120);
@@ -262,19 +264,22 @@ public class TanksApp extends Application {
           health1.setProgress(1 - hp[1] / 20);
         }
         if (world.getPlayers().size() >= 3) {
-          String statsPlayerThree = "Player 3 \n\nDeaths: " + world.getDeathcount(2);
-          gc.fillText(statsPlayerThree, 10, world.getHeight() - 70);
-          gc.strokeText(statsPlayerThree, 10, world.getHeight() - 70);
+
+          String statsPlayerThree =
+              "Player 3 \n\nKills :" + world.getKillcount(2) + "\nDeaths: " + world.getDeathcount(2);
+          gc.fillText(statsPlayerThree, 10, world.getHeight() - 110);
+          gc.strokeText(statsPlayerThree, 10, world.getHeight() - 110);
           health2.setLayoutX(10);
-          health2.setLayoutY(world.getHeight() - 55);
+          health2.setLayoutY(world.getHeight() - 95);
           health2.setProgress(1 - hp[2] / 20);
         }
         if (world.getPlayers().size() >= 4) {
-          String statsPlayerFour = "Player 4 \n\nDeaths: " + world.getDeathcount(3);
-          gc.fillText(statsPlayerFour, world.getWidth() - 120, world.getHeight() - 70);
-          gc.strokeText(statsPlayerFour, world.getWidth() - 120, world.getHeight() - 70);
+          String statsPlayerFour =
+              "Player 4 \n\nKills :" + world.getKillcount(3) + "\nDeaths: " + world.getDeathcount(3);
+          gc.fillText(statsPlayerFour, world.getWidth() - 120, world.getHeight() - 110);
+          gc.strokeText(statsPlayerFour, world.getWidth() - 120, world.getHeight() - 110);
           health3.setLayoutX(world.getWidth() - 120);
-          health3.setLayoutY(world.getHeight() - 55);
+          health3.setLayoutY(world.getHeight() - 95);
           health3.setProgress(1 - hp[3] / 20);
         }
       }
