@@ -254,7 +254,4 @@ public class World {
     star.setVelocity(vx, vy);
     toAdd.add(star);
   }
-
-  public void getHitpoints() {}
-
 }
