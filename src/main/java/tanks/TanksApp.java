@@ -43,6 +43,7 @@ public class TanksApp extends Application {
   double[] hp = new double[4];
   public boolean setStats = false;
   boolean pauseMenu = false;
+  boolean continuedGame = false;
   Group group = new Group();
 
   HealthBar health0 = new HealthBar("health-bar");
@@ -91,6 +92,7 @@ public class TanksApp extends Application {
 
       @Override
       public void continueGame() {
+        continuedGame = true;
         startGame(theStage, world);
       }
 
@@ -185,9 +187,13 @@ public class TanksApp extends Application {
 
     GraphicsContext gc = canvas.getGraphicsContext2D();
 
-    for (Controller ctrl : controllerManager.getControllers()) {
-      addPlayer(ctrl);
+    if (!continuedGame) {
+      for (Controller ctrl : controllerManager.getControllers()) {
+        addPlayer(ctrl);
+      }
     }
+    continuedGame = false;
+    setInitialStats();
     controllerManager.addListener(new ControllerAdapter() {
       @Override
       public void connected(Controller ctrl) {
