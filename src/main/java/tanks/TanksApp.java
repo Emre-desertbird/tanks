@@ -29,6 +29,8 @@ public class TanksApp extends Application {
   public static final int HEIGHT = 500;
   public static final int WIDTH = 600;
 
+  AnimationTimer animationTimer = null;
+
   public static void main(String[] args) {
     launch(args);
     SDL.SDL_SetHint("SDL_XINPUT_ENABLED", "1");
@@ -206,7 +208,18 @@ public class TanksApp extends Application {
       }
     });
 
-    new AnimationTimer() {
+    if (animationTimer != null) {
+      animationTimer.stop();
+    }
+    animationTimer = createAnimationTimer(world, canvas, gc);
+    animationTimer.start();
+
+    theStage.show();
+  }
+
+  private AnimationTimer createAnimationTimer(World world, Canvas canvas, GraphicsContext gc) {
+    return new AnimationTimer() {
+
       @Override
       public void handle(long currentNanoTime) {
         // calculate time since last update.
@@ -289,8 +302,7 @@ public class TanksApp extends Application {
           health3.setProgress(1 - hp[3] / 20);
         }
       }
-    }.start();
-    theStage.show();
+    };
   }
 
   private void setInitialStats() {
