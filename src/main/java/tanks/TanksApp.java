@@ -274,7 +274,7 @@ public class TanksApp extends Application {
 
         Random random = new Random();
         int randomNumber = random.ints(0, 4999).findFirst().getAsInt();
-        if (randomNumber <= 2) {
+        if (randomNumber <= 3) {
           int x = random.ints(0, (int) world.getWidth()).findFirst().getAsInt();
           int y = random.ints(0, (int) world.getHeight()).findFirst().getAsInt();
           switch (randomNumber) {
@@ -286,6 +286,9 @@ public class TanksApp extends Application {
               break;
             case 2:
               world.addHealthPack(x, y);
+              break;
+            case 3:
+              world.addFireSpeedUp(x, y);
               break;
           }
         }

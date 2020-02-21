@@ -27,6 +27,7 @@ public class Tank extends Entity {
 
   private boolean fire = false;
   private double fireCooldown = 0;
+  private double fireCooldownBoosted = 0.2;
 
   private int cracks = 0;
 
@@ -145,7 +146,10 @@ public class Tank extends Entity {
     }
 
     if (fire && fireCooldown <= 0) {
-      fireCooldown = 0.15;
+      fireCooldown = 0.2;
+      if (fireCooldownBoosted < fireCooldown) {
+        fireCooldown = fireCooldownBoosted;
+      }
       double rot = body.getRotation() + turret.getRotation();
       double vx = Math.cos(Math.toRadians(rot));
       double vy = Math.sin(Math.toRadians(rot));
@@ -235,6 +239,13 @@ public class Tank extends Entity {
     bulletSpeedFactor += 100;
     for (int i = 0; i < 10; ++i) {
       world.addStar(bulletSpeedUp.getPositionX(), bulletSpeedUp.getPositionY());
+    }
+  }
+
+  public void addFireSpeed(FireSpeedUp fireSpeedUp) {
+    fireCooldownBoosted *= 0.95;
+    for (int i = 0; i < 10; ++i) {
+      world.addStar(fireSpeedUp.getPositionX(), fireSpeedUp.getPositionY());
     }
   }
 

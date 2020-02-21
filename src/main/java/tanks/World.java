@@ -257,6 +257,12 @@ public class World {
     toAdd.add(bulletSpeedUp);
   }
 
+  public void addFireSpeedUp(double x, double y) {
+    FireSpeedUp fireSpeedUp = new FireSpeedUp(this);
+    fireSpeedUp.setPosition(x, y);
+    toAdd.add(fireSpeedUp);
+  }
+
   public void addStar(double x, double y) {
     Star star = new Star(this);
     star.setPosition(x, y);
